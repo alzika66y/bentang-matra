@@ -13,4 +13,4 @@ Proyek ini adalah sistem digital yang dikembangkan untuk mendukung manajemen log
 - HTML5, CSS3, JavaScript, dan leaflet JS.
 
 ---
-*Dikembangkan oleh [/Alzika Yardansyah]*
+*Dikembangkan oleh [Alzika Yardansyah]*
