@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Rapat Paripurna | BENTANG MATRA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f4f8f4;
+            --bg-paper: #FFFFFF;
+            --text-primary: #004D00;
+            --text-body: #333333;
+            --border-primary: #004D00;
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-body); 
+            font-family: var(--font-primary); 
+            line-height: 1.8; 
+            background-image: radial-gradient(rgba(0, 77, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Top Navigation */
+        .top-bar { 
+            background: var(--bg-paper); 
+            padding: 15px 40px; 
+            border-bottom: 2px solid var(--border-primary); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .back-btn { 
+            text-decoration: none; 
+            font-weight: 700; 
+            color: var(--border-primary); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--crimson-red); }
+        .back-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .brand-text { font-weight: 800; color: var(--text-primary); letter-spacing: 2px; }
+
+        /* Article Layout */
+        .article-container { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            background: var(--bg-paper); 
+            padding: 60px 80px; 
+            border: 1px solid rgba(0,77,0,0.2); 
+            border-radius: 8px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+        }
+        
+        /* Header & Labels */
+        .article-header { border-bottom: 3px double rgba(0,77,0,0.2); padding-bottom: 30px; margin-bottom: 40px; text-align: center; }
+        
+        .cool-label {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-terminal); font-size: 0.85rem; color: #fff;
+            font-weight: bold; letter-spacing: 2px; margin-bottom: 20px;
+            background: var(--text-primary); padding: 8px 20px;
+            border-radius: 3px; position: relative; overflow: hidden;
+        }
+        .cool-label::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine { 100% { left: 200%; } }
+
+        .article-title { font-size: 2.5rem; color: var(--text-primary); font-weight: 800; line-height: 1.3; margin-bottom: 15px; text-transform: uppercase; letter-spacing: -1px; }
+        
+        .author-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin-top: 20px; font-size: 0.95rem; color: #555;
+        }
+        .author-name { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
+        .author-title { font-size: 0.85rem; letter-spacing: 1px; color: var(--crimson-red); text-transform: uppercase; font-weight: 600; }
+
+        /* Cover Image */
+        .article-image { width: 100%; height: 450px; object-fit: cover; border-radius: 4px; margin-bottom: 40px; border: 1px solid rgba(0,77,0,0.2); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .image-caption { text-align: center; font-size: 0.8rem; color: #777; margin-top: -30px; margin-bottom: 40px; font-style: italic; font-family: var(--font-terminal); }
+        /* Typography & Body */
+        .article-body p { margin-bottom: 25px; font-size: 1.1rem; color: #333; text-align: justify; }
+        
+        .first-letter::first-letter {
+            font-size: 3.5rem; font-weight: 800; color: var(--text-primary); float: left;
+            line-height: 1; margin-right: 12px; margin-top: 5px;
+        }
+
+        .chapter-title { 
+            color: var(--text-primary); margin: 50px 0 25px 0; font-size: 1.5rem; 
+            font-weight: 700; border-bottom: 2px solid rgba(0,77,0,0.1); padding-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .chapter-title::before { content: '■'; color: var(--crimson-red); font-size: 1.2rem; }
+
+        /* Blockquotes & Callouts */
+        .quote-block {
+            margin: 40px 0; padding: 30px 40px; background: rgba(0,77,0,0.03);
+            border-left: 5px solid var(--gold-omega); border-radius: 0 8px 8px 0;
+            font-style: italic; font-size: 1.25rem; color: var(--text-primary);
+            line-height: 1.6; position: relative;
+        }
+        .quote-block::before {
+            content: '"'; position: absolute; top: 10px; left: 15px;
+            font-size: 4rem; color: rgba(255, 193, 7, 0.3); font-family: Georgia, serif; line-height: 1;
+        }
+        .quote-author { display: block; margin-top: 15px; font-size: 0.9rem; font-weight: 700; font-style: normal; color: #555; }
+
+        .data-box {
+            background: #fff; border: 1px dashed var(--crimson-red); padding: 25px;
+            margin: 30px 0; border-radius: 4px; box-shadow: 0 5px 15px rgba(211,47,47,0.05);
+        }
+        .data-box h4 { margin-bottom: 15px; color: var(--crimson-red); font-family: var(--font-terminal); font-size: 1rem; letter-spacing: 1px; }
+        .data-list { list-style: none; }
+        .data-list li { margin-bottom: 10px; padding-left: 20px; position: relative; font-size: 1.05rem; }
+        .data-list li::before { content: '›'; position: absolute; left: 0; color: var(--crimson-red); font-weight: bold; }
+
+        /* Footer Document */
+        .footer-doc {
+            text-align: center; margin-top: 60px; padding-top: 30px; 
+            border-top: 2px dashed rgba(0,77,0,0.2); font-family: var(--font-terminal); 
+            font-size: 0.85rem; color: #666; font-weight: 600; line-height: 1.8;
+        }
+        .signature-area { margin-top: 40px; display: flex; justify-content: flex-end; }
+        .signature-box { text-align: center; border-top: 1px solid #333; padding-top: 10px; width: 250px; }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .top-bar { padding: 15px 20px; }
+            .brand-text { display: none; } /* Hide on mobile to save space */
+            .article-container { margin: 20px 10px; padding: 40px 25px; }
+            .article-title { font-size: 1.8rem; }
+            .article-image { height: 250px; }
+            .quote-block { padding: 20px 25px; font-size: 1.1rem; }
+            .chapter-title { font-size: 1.3rem; }
+            .first-letter::first-letter { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <a href="buletin.html" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            KEMBALI KE ARSIP
+        </a>
+        <div class="brand-text">BENTANG MATRA</div>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <div class="article-header">
+                <div class="cool-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2L2 22h20L12 2zm0 3.83l7.07 14.17H4.93L12 5.83zM11 16h2v2h-2zm0-7h2v5h-2z"/></svg>
+                    SIARAN EKSEKUTIF
+                </div>
+                <h1 class="article-title">Laporan Taktis Rapat Paripurna Dewan Eselon Pusat</h1>
+                
+                <div class="author-box">
+                    <span style="font-family: var(--font-terminal); font-size: 0.8rem; margin-bottom: 5px;">DILAPORKAN OLEH:</span>
+                    <span class="author-name">Jenderal Indriani Wulandari</span>
+                    <span class="author-title">Director of Public Affairs</span>
+                    <span style="margin-top: 8px; font-size: 0.85rem;">24 Mei 2026 | Markas Pusat Bentang Matra</span>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1506461883276-594a12b11dc3?auto=format&fit=crop&w=1200&q=80" alt="Ruang Rapat Paripurna" class="article-image">
+            <div class="image-caption">Visual. 01 — Suasana Ruang Kendali Utama jelang pengesahan Revisi Protokol OMEGA.</div>
+            <div class="article-body">
+                <p class="first-letter">Tepat pada pukul 08:00 waktu setempat, pintu baja berat Ruang Kendali Utama Markas Besar Bentang Matra tertutup rapat. Lampu indikator di atas mimbar utama berubah menjadi merah konstan, menandakan berlakunya sterilisasi informasi tingkat tinggi. Hari ini, seluruh pemegang komando bintang empat, Dewan Eselon Pusat, berkumpul dalam sebuah Rapat Paripurna yang akan menentukan arah operasional organisasi untuk dekade mendatang.</p>
+
+                <p>Dipimpin langsung oleh Supreme Commander Alzika Yardansyah, agenda rapat kali ini bukan sekadar evaluasi kuartalan biasa. Dinamika alam yang semakin sulit diprediksi, ditambah dengan meluasnya cakupan misi kemanusiaan dan eksplorasi yang diemban oleh Bentang Matra, menuntut adanya perombakan besar dalam doktrin dan arsitektur logistik kita.</p>
+
+                <h2 class="chapter-title">BAB I: Tinjauan Kinerja & Manuver Lapangan</h2>
+                <p>Sesi pertama dibuka dengan pemaparan langsung dari <strong>Jenderal Yondri Satria Pranata</strong>, Chief of Field Operations. Layar holografik di tengah ruangan menampilkan peta topografi tiga dimensi dari sektor Alpha hingga Delta. Beliau menyoroti pencapaian luar biasa dari Matra Subteranea dan Hidrodinamika selama enam bulan terakhir.</p>
+
+                <p>"Anomali gravitasi dan cuaca ekstrem bukan lagi sekadar teori di atas kertas; itu adalah sarapan harian para operator kita di lapangan," tegas Jenderal Yondri sambil menunjuk visualisasi badai di sektor perairan terbuka. Beliau melaporkan bahwa manuver <em>Z-Drag System</em> yang diuji coba oleh tim SAR telah berhasil memangkas waktu evakuasi kritis hingga 30%, sebuah angka yang merepresentasikan keselamatan ratusan nyawa.</p>
+
+                <div class="quote-block">
+                    "Medan operasi kita tidak pernah berkompromi. Oleh karena itu, persiapan dan disiplin kita harus jauh lebih keras daripada alam itu sendiri."
+                    <span class="quote-author">— Jenderal Yondri Satria Pranata</span>
+                </div>
+
+                <h2 class="chapter-title">BAB II: Orkestrasi Data dan Rantai Pasok (Logistik)</h2>
+                <p>Ketahanan fisik di lapangan adalah ilusi tanpa dukungan data yang akurat dan perut yang terisi. Ini menjadi poin utama yang disuarakan oleh dua pilar strategis organisasi: <strong>Jenderal Meilina Anggraini</strong> (Director of Data Architect) dan <strong>Jenderal Muhammad Arif</strong> (Director of Logistics).</p>
+
+                <p>Jenderal Meilina mempresentasikan sistem algoritma prediktif terbaru yang kini telah diintegrasikan dengan satelit cuaca geostasioner. "Kita tidak lagi merespons bencana; sistem kita kini mampu memprediksi anomali cuaca 48 jam sebelum fluktuasi terjadi di biosfer," paparnya. Algoritma ini dirancang untuk membaca kelembapan tanah, debit air hulu, hingga pergerakan angin mikro yang sering kali menjadi titik buta (blind spot) pada ekspedisi darat.</p>
+
+                <p>Menyambung hal tersebut, Jenderal Muhammad Arif menjabarkan revisi standar asupan kalori dan beban taktis personel. Beliau mengesahkan formulasi ransum terbaru yang lebih padat nutrisi namun memangkas 15% berat bawaan ransel (carrier) para operator.</p>
+
+                <div class="data-box">
+                    <h4>[ SUMMARY ] REVISI PARAMETER LOGISTIK 2026:</h4>
+                    <ul class="data-list">
+                        <li>Peningkatan rasio kalori per gram ransum sebesar 22%.</li>
+                        <li>Implementasi tabung oksigen portabel komposit (lebih ringan 300 gram) untuk matra Subteranea.</li>
+                        <li>Penggantian tali karmantel standar dengan serat <em>Dyneema-Core</em> untuk operasi vertikal.</li>
+                        <li>Standardisasi unit P3K termal untuk mengatasi hipotermia akut di bawah 15 menit.</li>
+                    </ul>
+                </div>
+                <h2 class="chapter-title">BAB III: Revisi Protokol Keamanan (Protokol OMEGA)</h2>
+                <p>Puncak ketegangan rapat terjadi saat <strong>Jenderal Raja Risma Imesia</strong>, Director of Risk Mitigation & Security Protocols, mengambil alih mimbar. Suasana hening seketika. Agenda yang dibawakan adalah dokumen setebal 400 halaman bertajuk "Revisi Protokol OMEGA".</p>
+
+                <p>Protokol OMEGA adalah tingkat respons tertinggi dalam hierarki Bentang Matra, diaktifkan hanya ketika nyawa personel berada dalam bahaya absolut atau terjadi kegagalan sistem komando wilayah. Jenderal Risma menyoroti bahwa batas-batas yurisdiksi sering kali menghambat laju evakuasi taktis (SAR).</p>
+
+                <p>"Mulai kuartal ketiga tahun ini, otoritas komandan lapangan di bawah tingkat Kapten berhak mengambil keputusan otonom <em>bypass</em> jika komunikasi dengan Markas Pusat terputus lebih dari 12 jam. Kita tidak akan membiarkan birokrasi membunuh prajurit kita di lapangan," tegas Risma. Keputusan ini, meskipun radikal, mendapat anggukan setuju dari seluruh jajaran.</p>
+
+                <h2 class="chapter-title">BAB IV: Dekrit Supreme Commander</h2>
+                <p>Memasuki jam ke-enam, Supreme Commander <strong>Alzika Yardansyah</strong> berdiri. Seluruh data, argumen, dan revisi yang telah dipaparkan bermuara pada persetujuannya. Beliau tidak melihat layar, melainkan menatap langsung ke arah masing-masing direktur.</p>
+
+                <p>Beliau menandatangani dekrit pengesahan arsitektur baru Bentang Matra. Dalam pidato penutupnya, Supreme Commander Alzika mengingatkan kembali tentang identitas filosofis yang menjadi fondasi berdirinya komando ini.</p>
+
+                <div class="quote-block">
+                    "Tugas kita bukan sekadar mencatat koordinat di atas peta, melainkan memastikan setiap nama yang berangkat melaksanakan tugas, kembali ke rumah dengan selamat. Kita adalah bayangan yang mengamankan terang. Laksanakan dengan kehormatan."
+                    <span class="quote-author">— Supreme Commander Alzika Yardansyah</span>
+                </div>
+
+                <h2 class="chapter-title">Ketetapan & Tindak Lanjut</h2>
+                <p>Melalui laporan ini, saya, selaku Direktur Urusan Publik, menginstruksikan kepada seluruh jajaran Komandan Sektor (Golongan II) mulai dari Matra Terestrial hingga Evakuasi Taktis untuk segera mensosialisasikan cetak biru baru ini kepada seluruh personel kompi masing-masing. Transisi menuju Protokol OMEGA Revisi-B akan efektif berjalan dalam 72 jam sejak dokumen ini disiarkan.</p>
+
+                <p>Keselamatan bukanlah hasil dari keberuntungan. Ia diciptakan oleh mereka yang siap. <strong>KENDALI MUTLAK DI SEGALA MEDAN.</strong></p>
+
+                <div class="footer-doc">
+                    [ DOKUMEN ALPHA-1 TELAH DIVERIFIKASI DAN DIREKAM DALAM ARSIP STRATEGIS ]
+                    <div class="signature-area">
+                        <div class="signature-box">
+                            <span style="display: block; font-family: var(--font-primary); font-weight: 700; color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px;">Indriani Wulandari</span>
+                            Director of Public Affairs<br>BENTANG MATRA
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; background: var(--bg-paper); border-top: 1px solid rgba(0,77,0,0.1);">
+        <p style="font-size: 0.85rem; color: #666; font-weight: 600;">Hak Cipta &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.</p>
+    </footer>
+</body>
+</html>

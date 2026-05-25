@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENTANG MATRA | Matra Terestrial</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F4F7F4;
+            --text-primary: #004D00;
+            --border-primary: #004D00;
+            --crimson-red: #D32F2F;
+            --radar-green: #10B981;
+            --radar-glow: rgba(16, 185, 129, 0.4);
+            
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: #2D3748;
+            font-family: var(--font-primary);
+            min-height: 100vh;
+            padding: clamp(15px, 3vw, 40px) clamp(10px, 3vw, 20px);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-primary);
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 10px 30px rgba(0, 77, 0, 0.08);
+            border-radius: 4px;
+        }
+
+        .tactical-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid var(--border-primary);
+            padding-bottom: 20px;
+            margin-bottom: clamp(25px, 4vw, 35px);
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px dashed var(--border-primary);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            font-family: var(--font-terminal);
+            font-weight: bold;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-style: solid;
+        }
+
+        .sector-tag {
+            font-family: var(--font-terminal);
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            color: var(--text-primary);
+            font-weight: bold;
+            background: rgba(0, 77, 0, 0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid var(--border-primary);
+        }
+
+        .intro-section {
+            margin-bottom: 30px;
+        }
+
+        .pilar-badge {
+            font-family: var(--font-terminal);
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            color: var(--crimson-red);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            color: var(--text-primary);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .radar-monitor {
+            background: #020a02;
+            border: 2px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+
+        .radar-monitor::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(16, 185, 129, 0.1) 50%);
+            background-size: 100% 4px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .radar-screen {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .radar-screen::before {
+            content: '';
+            position: absolute;
+            width: 260px; height: 260px;
+            border-radius: 50%;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: 
+                radial-gradient(circle, transparent 33%, rgba(16, 185, 129, 0.2) 34%, transparent 35%),
+                radial-gradient(circle, transparent 66%, rgba(16, 185, 129, 0.2) 67%, transparent 68%);
+            box-shadow: inset 0 0 20px var(--radar-glow);
+        }
+
+        .radar-screen::after {
+            content: '';
+            position: absolute;
+            width: 260px; height: 260px;
+            background: 
+                linear-gradient(90deg, transparent 49.5%, rgba(16, 185, 129, 0.3) 50%, transparent 50.5%),
+                linear-gradient(0deg, transparent 49.5%, rgba(16, 185, 129, 0.3) 50%, transparent 50.5%);
+            border-radius: 50%;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        .radar-sweep::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: conic-gradient(from 0deg, var(--radar-glow) 0deg, transparent 60deg);
+            border-radius: 50%;
+            animation: radar-rotate 3s linear infinite;
+        }
+
+        .radar-blip {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            top: 35%; right: 35%;
+            box-shadow: 0 0 10px 3px var(--radar-green);
+            z-index: 3;
+            animation: blip-flash 3s infinite;
+        }
+
+        @keyframes radar-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes blip-flash {
+            0%, 40% { opacity: 0; transform: scale(0.5); }
+            45% { opacity: 1; transform: scale(1.2); }
+            50%, 100% { opacity: 0; transform: scale(0.5); }
+        }
+        .radar-telemetry {
+            font-family: var(--font-terminal);
+            color: var(--radar-green);
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(16, 185, 129, 0.3);
+            padding-top: 10px;
+            z-index: 2;
+        }
+
+        .control-panel {
+            border: 2px solid var(--border-primary);
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-title {
+            font-family: var(--font-terminal);
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-primary);
+            padding-bottom: 8px;
+        }
+
+        .layer-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2D3748;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .layer-btn:hover {
+            background: #e6eee6;
+        }
+
+        .layer-btn.active {
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .layer-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* -------------------------------------------
+           MODUL MATRA TERESTRIAL (PILAR UTAMA)
+        ------------------------------------------- */
+        .modul-section {
+            margin-top: 40px;
+            border-top: 2px dashed var(--border-primary);
+            padding-top: 30px;
+        }
+
+        .modul-title {
+            font-family: var(--font-terminal);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pilar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .pilar-card {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--border-primary);
+            padding: 25px 20px;
+            border-radius: 6px;
+            background: var(--bg-primary);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pilar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 77, 0, 0.15);
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .pilar-card:hover .pilar-desc,
+        .pilar-card:hover .tag {
+            color: #F4F7F4;
+        }
+
+        .pilar-card:hover .tag {
+            border-color: #F4F7F4;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pilar-card:hover svg {
+            stroke: var(--radar-green);
+        }
+
+        .pilar-icon {
+            margin-bottom: 15px;
+        }
+
+        .pilar-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .pilar-desc {
+            font-size: 0.88rem;
+            color: #4A5568;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .tag {
+            font-family: var(--font-terminal);
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border: 1px solid var(--border-primary);
+            border-radius: 3px;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tag.highlight {
+            background: rgba(211, 47, 47, 0.1);
+            border-color: var(--crimson-red);
+            color: var(--crimson-red);
+        }
+
+        .pilar-card:hover .tag.highlight {
+            background: var(--crimson-red);
+            color: white;
+            border-color: var(--crimson-red);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .radar-monitor {
+                min-height: 320px;
+            }
+            .radar-screen::before, .radar-screen::after, .radar-sweep {
+                width: 200px; height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tactical-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-back, .sector-tag {
+                text-align: center;
+                width: 100%;
+            }
+            .radar-telemetry {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+        
+        <header class="tactical-header">
+            <a href="index.html" class="btn-back">&larr; [KEMBALI KE SEKTOR UTAMA]</a>
+            <div class="sector-tag">// PUSAT_KENDALI_MATRA_TERESTRIAL</div>
+        </header>
+
+        <section class="intro-section">
+            <span class="pilar-badge">[MODUL ANTARMUKA UTAMA]</span>
+            <h1 class="main-title">Kedaulatan Topografi & Ekosistem Hutan Belantara</h1>
+            <p style="color: #4A5568; font-size: 0.95rem; line-height: 1.6; max-width: 800px;">
+                Sistem visualisasi data aktif untuk memetakan kanopi vegetasi secara real-time. Memungkinkan pengawasan perimeter kritis dan kalkulasi elevasi tanpa celah di bawah medan ekstrem.
+            </p>
+        </section>
+
+        <div class="dashboard-grid">
+            
+            <div class="radar-monitor">
+                <div style="font-family: var(--font-terminal); color: var(--radar-green); font-size: 0.75rem; z-index: 2;">
+                    [LIVE FEED // CANOPY SCANNER V.2.6]
+                </div>
+                
+                <div class="radar-screen">
+                    <div class="radar-sweep"></div>
+                    <div class="radar-blip"></div>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" style="z-index: 3;">
+                        <circle cx="12" cy="12" r="3" fill="#10B981"/>
+                        <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                <div class="radar-telemetry">
+                    <span>ALT: 1,420M ASL</span>
+                    <span>DENSITY: 84.2% (HEAVY)</span>
+                    <span>PERIMETER: SECURE</span>
+                </div>
+            </div>
+
+            <div class="control-panel">
+                <div class="panel-title">// LAPISAN DATA (LAYERS)</div>
+                
+                <button class="layer-btn active">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    Matriks Topografi 3D
+                </button>
+
+                <button class="layer-btn">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                    </svg>
+                    Kandungan Spektrum Kanopi
+                </button>
+
+                <button class="layer-btn">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11.5c0-.733-.034-1.458-.1-2.17M14 11c0 3.517 1.009 6.799 2.753 9.571m3.44-2.04l-.054-.09A13.916 13.916 0 0015 11.5c0-.733.034-1.458.1-2.17M9 3h6M12 3v1m0 16v1m9-9h-1M4 12H3" />
+                    </svg>
+                    Sinkronisasi Radar Luring
+                </button>
+            </div>
+
+        </div>
+
+        <section class="modul-section">
+            <h2 class="modul-title">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                DIREKTORI PILAR OPERASIONAL
+            </h2>
+
+            <div class="pilar-grid">
+                
+                <a href="pilar1_peta_rute.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 01: Peta Rute</h3>
+                    <p class="pilar-desc">Pemetaan topografi, rute pendakian, dan pemantauan elevasi gunung-gunung strategis dalam zona operasi.</p>
+                    <div class="tags-container">
+                        <span class="tag">Topografi</span>
+                        <span class="tag">Navigasi Jalur</span>
+                    </div>
+                </a>
+
+                <a href="pilar2_sejarah.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 02: Histori & Penjelajahan</h3>
+                    <p class="pilar-desc">Arsip sejarah gunung, evolusi hutan belantara, dan catatan ekspedisi dari divisi matra terestrial.</p>
+                    <div class="tags-container">
+                        <span class="tag">Arsip Matra</span>
+                        <span class="tag">Log Ekspedisi</span>
+                    </div>
+                </a>
+
+                <a href="pilar3_disiplin_ilmu.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 03: Disiplin Ilmu</h3>
+                    <p class="pilar-desc">Pusat data keilmuan lapangan, protokol taktis, dan akses unduhan materi operasional secara luring.</p>
+                    <div class="tags-container">
+                        <span class="tag">Navdar</span>
+                        <span class="tag">Survival Botani</span>
+                        <span class="tag">Manajemen Perjalanan</span>
+                        <span class="tag">Ekologi Biosfer</span>
+                        <span class="tag">Protokol</span>
+                        <span class="tag highlight">PDF Buku Saku ↓</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDENTITAS & FILOSOFI | Bentang Matra</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Kode Warna Resmi Bentang Matra berdasar Dokumen Alpha-1 */
+            --obsidian-black: #0B0F19; 
+            --radar-green: #00FF41;
+            --radar-green-dim: rgba(0, 255, 65, 0.1);
+            --crimson-red: #D32F2F;
+            --text-light: #E0E6ED;
+            
+            --font-sans: 'Poppins', Arial, sans-serif;
+            --font-mono: 'Courier Prime', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--obsidian-black); 
+            color: var(--text-light); 
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: radial-gradient(var(--radar-green-dim) 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+
+        /* --- STICKY NAV --- */
+        .header-nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 15px 30px; display: flex; align-items: center;
+            border-bottom: 1px solid var(--radar-green);
+            box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            text-decoration: none; color: var(--radar-green);
+            font-weight: 600; font-size: 0.85rem; font-family: var(--font-mono);
+            padding: 8px 18px; border: 1px solid var(--radar-green);
+            border-radius: 4px; transition: all 0.3s ease;
+        }
+
+        .btn-back:hover { background: var(--radar-green); color: var(--obsidian-black); }
+        .btn-back svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .nav-title { margin-left: 20px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--radar-green); letter-spacing: 1px; }
+
+        /* --- MUKADIMAH (HERO) --- */
+        .hero-section {
+            padding: 80px 20px; text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .sys-badge {
+            display: inline-block; background: var(--crimson-red); color: white;
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+            padding: 5px 15px; letter-spacing: 2px; margin-bottom: 25px;
+            border-radius: 2px;
+        }
+
+        .hero-quote {
+            max-width: 900px; margin: 0 auto; font-size: 1.5rem;
+            font-style: italic; color: var(--radar-green);
+            line-height: 1.6; font-weight: 300;
+        }
+
+        /* --- KONTEN UTAMA --- */
+        .main-container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+
+        .section-header {
+            border-left: 4px solid var(--crimson-red);
+            padding-left: 15px; margin-bottom: 30px;
+        }
+        
+        .section-title { font-size: 1.8rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        .section-subtitle { font-family: var(--font-mono); font-size: 0.85rem; color: var(--radar-green); margin-top: 5px; }
+
+        /* Etimologi Grid */
+        .etimologi-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px;
+        }
+        
+        .etimologi-card {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(0, 255, 65, 0.2);
+            padding: 30px; border-radius: 8px; transition: transform 0.3s;
+        }
+        .etimologi-card:hover { transform: translateY(-5px); border-color: var(--radar-green); box-shadow: 0 10px 30px rgba(0,255,65,0.05); }
+        .word-title { font-size: 2rem; font-weight: 700; color: var(--radar-green); margin-bottom: 15px; letter-spacing: 2px; }
+
+        /* List Filosofi & Lambang */
+        .data-list { list-style: none; margin-bottom: 50px; }
+        .data-list li {
+            position: relative; padding-left: 30px; margin-bottom: 20px;
+            background: rgba(255,255,255,0.02); padding: 20px 20px 20px 40px;
+            border-left: 2px solid var(--radar-green); border-radius: 0 8px 8px 0;
+        }
+        .data-list li::before {
+            content: '>'; position: absolute; left: 15px; top: 20px;
+            color: var(--radar-green); font-family: var(--font-mono); font-weight: bold;
+        }
+        .data-list strong { color: #fff; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+
+        /* Kode Warna Resmi */
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 50px; }
+        .color-box {
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .color-fill { height: 100px; width: 100%; }
+        .color-info { padding: 20px; background: rgba(255,255,255,0.03); flex-grow: 1; }
+        .color-name { font-weight: 700; color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
+        .color-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .cite-tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--radar-green); opacity: 0.7; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .etimologi-grid, .color-grid { grid-template-columns: 1fr; }
+            .hero-quote { font-size: 1.2rem; }
+            .header-nav { padding: 15px; }
+            .nav-title { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <a href="index.html" class="btn-back">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            KEMBALI
+        </a>
+        <span class="nav-title">SYS.DIR: DOKUMEN ALPHA-0 & ALPHA-1</span>
+    </header>
+
+    <section class="hero-section">
+        <span class="sys-badge">MUKADIMAH PIAGAM KONSTITUSI</span>
+        <blockquote class="hero-quote">
+            "Bahwa sesungguhnya setiap jengkal bentang alam menyimpan variabel dan anomali yang mematikan. Keselamatan bukanlah hasil dari keberuntungan, melainkan kalkulasi yang presisi. Kami tidak lahir untuk sekadar menaklukkan alam, melainkan menaklukkan ketidaktahuan manusia tentang alam. Atas dasar tersebut, Pusat Komando Intelijen Alam Bebas ini didirikan." <span class="cite-tag">[cite: 6]</span>
+        </blockquote>
+    </section>
+
+    <main class="main-container">
+
+        <div class="section-header">
+            <h2 class="section-title">Etimologi & Filosofi Dasar</h2>
+            <div class="section-subtitle">// DOKUMEN ALPHA-0 : DEFINISI LINGUISTIK</div>
+        </div>
+
+        <div class="etimologi-grid">
+            <div class="etimologi-card">
+                <div class="word-title">BENTANG</div>
+                <p>Merujuk pada hamparan fisik permukaan bumi beserta seluruh dinamikanya <span class="cite-tag">[cite: 53]</span>. Ini adalah simbol dari arena operasi kita yang membentang tanpa batas— dari puncak gunung bersalju, hutan hujan tropis yang rapat, hingga palung sungai yang deras <span class="cite-tag">[cite: 54]</span>.</p>
+            </div>
+            <div class="etimologi-card">
+                <div class="word-title">MATRA</div>
+                <p>Berarti ukuran, dimensi, atau wilayah kekuasaan spesifik <span class="cite-tag">[cite: 55]</span>. Ini melambangkan penguasaan taktis tim terhadap hukum alam di setiap dimensi yang berbeda <span class="cite-tag">[cite: 56]</span>.</p>
+            </div>
+        </div>
+
+        <p style="margin-bottom: 50px; font-size: 1.1rem; text-align: justify; padding: 20px; background: rgba(0,255,65,0.05); border: 1px solid var(--radar-green); border-radius: 8px;">
+            Bentang Matra bukanlah sekadar komunitas pejalan kaki, melainkan sebuah Pusat Komando Intelijen Alam Bebas <span class="cite-tag">[cite: 58]</span>. Filosofi utama dari nama ini adalah Penguasaan Absolut atas Ruang Geografis <span class="cite-tag">[cite: 59]</span>. Institusi ini bernama Bentang Matra, berkedudukan sebagai Pusat Komando Intelijen Alam Bebas yang merumuskan dan mengeksekusi operasi taktis lintas medan <span class="cite-tag">[cite: 9]</span>. Kita masuk ke dalam bentang alam yang liar, lalu memecahnya menjadi matra-matra operasional yang terukur, dapat dikalkulasi, dan dapat dinavigasi dengan rasio logika <span class="cite-tag">[cite: 61]</span>. Organisasi ini tidak "menaklukkan" alam, melainkan menaklukkan ketidaktahuan manusia tentang alam <span class="cite-tag">[cite: 60]</span>.
+        </p>
+
+
+        <div class="section-header">
+            <h2 class="section-title">Insignia & Moto Operasional</h2>
+            <div class="section-subtitle">// DOKUMEN ALPHA-1 : LAMBANG KEBESARAN</div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--radar-green); margin-bottom: 10px;">[ MOTO TAKTIS RESMI ]</p>
+            <h3 style="font-size: 1.8rem; font-weight: 700; color: #fff;">"Kendali Mutlak di Segala Medan: Elevasi, Profunditas, dan Kinetika." <span class="cite-tag">[cite: 11]</span></h3>
+        </div>
+
+        <ul class="data-list">
+            <li>
+                <strong>Segi Enam Presisi (Tactical Hexagon)</strong>
+                Bingkai terkuat dalam geometri yang melambangkan perlindungan absolut, ketahanan di bawah tekanan, dan efisiensi manajemen logistik <span class="cite-tag">[cite: 13]</span>.
+            </li>
+            <li>
+                <strong>Kursor Bidik (Reticle Navigasi)</strong>
+                Melambangkan Matra Evakuasi Taktis (SAR) dan kepemimpinan <span class="cite-tag">[cite: 14]</span>. Tim tidak pernah kehilangan orientasi dan bergerak berdasarkan koordinat presisi <span class="cite-tag">[cite: 15]</span>.
+            </li>
+            <li>
+                <strong>Isoline Elevasi (Kuadran Atas)</strong>
+                Garis kontur pemetaan yang melambangkan Matra Terestrial (Gunung & Biosfer) <span class="cite-tag">[cite: 16]</span>.
+            </li>
+            <li>
+                <strong>Vektor Profunditas (Segitiga Terbalik)</strong>
+                Melambangkan titik Nadir, mewakili Matra Subteranea & Vertikal (Gua & Jurang) <span class="cite-tag">[cite: 18]</span>.
+            </li>
+            <li>
+                <strong>Gelombang Fluida (Garis Horizontal)</strong>
+                Frekuensi osilator yang melambangkan velositas arus, mewakili Matra Hidrodinamika (Sungai & Laut) <span class="cite-tag">[cite: 19]</span>.
+            </li>
+        </ul>
+
+        <div class="section-header">
+            <h2 class="section-title">Kode Warna Taktis</h2>
+            <div class="section-subtitle">// DOKUMEN ALPHA-1 : IDENTITAS VISUAL</div>
+        </div>
+
+        <div class="color-grid">
+            <div class="color-box">
+                <div class="color-fill" style="background: #0B0F19; border-bottom: 1px solid rgba(255,255,255,0.1);"></div>
+                <div class="color-info">
+                    <div class="color-name">Obsidian Black</div>
+                    <div class="color-desc">Merepresentasikan operasi di balik layar dan medan gelap <span class="cite-tag"></span>.</div>
+                </div>
+            </div>
+            
+            <div class="color-box">
+                <div class="color-fill" style="background: #00FF41;"></div>
+                <div class="color-info">
+                    <div class="color-name" style="color: #00FF41;">Radar Green</div>
+                    <div class="color-desc">Melambangkan teknologi intelijen & navigasi <span class="cite-tag"></span>.</div>
+                </div>
+            </div>
+
+            <div class="color-box">
+                <div class="color-fill" style="background: #D32F2F;"></div>
+                <div class="color-info">
+                    <div class="color-name" style="color: #D32F2F;">Crimson Red</div>
+                    <div class="color-desc">Melambangkan Hak Veto, Darurat Medis, & Keselamatan Nyawa <span class="cite-tag"></span>.</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px; border-top: 1px solid rgba(0, 255, 65, 0.2); background: rgba(0,0,0,0.5);">
+        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); font-family: var(--font-mono);">
+            Sistem Proteksi Enkripsi Visual &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.
+        </p>
+    </footer>
+
+</body>
+</html>

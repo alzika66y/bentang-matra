@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARSIP BULETIN | Bentang Matra</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fcf8;
+            --text-primary: #004D00;
+            --border-primary: #004D00;
+            --radar-green: #00FF41;
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-primary); 
+            font-family: var(--font-primary); 
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(0, 77, 0, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        /* Efek Pemindai Taktis */
+        .scanline { 
+            width: 100%; height: 50px; z-index: 9997; position: fixed; pointer-events: none; 
+            background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(255,255,255,0) 100%); 
+            animation: scan 8s linear infinite; 
+        }
+        @keyframes scan { 0% { top: -50px; } 100% { top: 100vh; } }
+        
+        /* Navigasi Atas */
+        .top-nav { 
+            position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); 
+            border-bottom: 2px solid var(--border-primary); box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .brand-cluster { display: flex; align-items: center; gap: 15px; }
+        .brand-title { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
+        .brand-subtitle { font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; color: var(--crimson-red); }
+        
+        .btn-back {
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+            background: transparent; color: var(--text-primary); padding: 8px 20px;
+            font-weight: 700; border: 2px solid var(--border-primary); border-radius: 4px;
+            font-family: var(--font-primary); font-size: 0.9rem; letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-back:hover { background: var(--border-primary); color: #fff; }
+        .btn-back svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* Header Halaman */
+        .page-header {
+            text-align: center; padding: 60px 20px 40px; max-width: 800px; margin: 0 auto;
+        }
+        .sys-badge {
+            display: inline-block; font-family: var(--font-terminal); font-size: 0.8rem;
+            background: var(--text-primary); color: #fff; padding: 5px 15px;
+            margin-bottom: 20px; letter-spacing: 2px; font-weight: bold; border-radius: 2px;
+        }
+        .page-title {
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.2;
+            letter-spacing: -1px; margin-bottom: 15px; text-transform: uppercase;
+        }
+        .page-desc { color: #555; font-size: 1.1rem; font-weight: 300; line-height: 1.6; }
+        /* Layout Grid Buletin */
+        .archive-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px 80px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+        }
+
+        /* Desain Kartu Dossier (Artikel) */
+        .dossier-card {
+            background: #fff; border: 1px solid rgba(0,77,0,0.2); border-radius: 6px;
+            overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .dossier-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
+            background: var(--border-primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+        }
+        .dossier-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,77,0,0.1); border-color: var(--border-primary); }
+        .dossier-card:hover::after { transform: scaleX(1); background: var(--crimson-red); }
+        
+        .dossier-img-wrapper { position: relative; width: 100%; height: 200px; overflow: hidden; border-bottom: 1px solid rgba(0,77,0,0.1); }
+        .dossier-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(20%); }
+        .dossier-card:hover .dossier-img { transform: scale(1.08); filter: grayscale(0%); }
+        
+        .dossier-status {
+            position: absolute; top: 15px; right: 15px; background: rgba(211, 47, 47, 0.9);
+            color: #fff; font-family: var(--font-terminal); font-size: 0.7rem; font-weight: bold;
+            padding: 4px 10px; letter-spacing: 1px; border: 1px solid #fff; z-index: 2; border-radius: 2px;
+        }
+
+        .dossier-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .dossier-meta {
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-terminal); font-size: 0.75rem; color: #666;
+            margin-bottom: 15px; font-weight: 700; border-bottom: 1px dashed rgba(0,77,0,0.2); padding-bottom: 10px;
+        }
+        .dossier-title { font-size: 1.25rem; font-weight: 700; line-height: 1.4; margin-bottom: 15px; color: var(--text-primary); }
+        .dossier-excerpt { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; }
+        
+        .btn-read {
+            display: inline-block; text-align: center; background: rgba(0,77,0,0.05); color: var(--text-primary);
+            padding: 12px; font-weight: 700; text-decoration: none; border: 1px solid rgba(0,77,0,0.2);
+            border-radius: 4px; font-size: 0.9rem; letter-spacing: 1px; transition: all 0.3s;
+        }
+        .dossier-card:hover .btn-read { background: var(--border-primary); color: #fff; border-color: var(--border-primary); }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 15px 20px; }
+            .btn-back span { display: none; } /* Hanya tampilkan ikon di mobile */
+            .page-header { padding: 40px 20px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    
+    <header class="top-nav">
+        <div class="brand-cluster">
+            <div>
+                <h1 class="brand-title">BENTANG MATRA</h1>
+                <span class="brand-subtitle">ARSIP BULETIN PUSAT</span>
+            </div>
+        </div>
+        <a href="index.html" class="btn-back">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <span>KEMBALI KE PUSAT KOMANDO</span>
+        </a>
+    </header>
+
+    <section class="page-header">
+        <div class="sys-badge">SYS.ACCESS: GRANTED // LVL: ALPHA</div>
+        <h2 class="page-title">BULETIN OPERASIONAL TERKINI</h2>
+        <p class="page-desc">Dokumentasi taktis, laporan lapangan, dan resolusi strategis dari seluruh sektor operasi Bentang Matra. Pilih dokumen untuk dekripsi penuh.</p>
+    </section>
+    <section class="archive-container">
+        
+        <article class="dossier-card">
+            <div class="dossier-img-wrapper">
+                <span class="dossier-status" style="background: var(--gold-omega); color: #000;">SIARAN EKSEKUTIF</span>
+                <img src="https://images.unsplash.com/photo-1506461883276-594a12b11dc3?auto=format&fit=crop&w=600&q=80" alt="Rapat Dewan Eselon" class="dossier-img">
+            </div>
+            <div class="dossier-content">
+                <div class="dossier-meta">
+                    <span>24 MEI 2026</span>
+                    <span style="color: var(--crimson-red);">KODE: HQ-01</span>
+                </div>
+                <h3 class="dossier-title">Laporan Taktis Rapat Paripurna Dewan Eselon Pusat</h3>
+                <p class="dossier-excerpt">Supreme Commander mengesahkan revisi Protokol OMEGA untuk ekspansi taktis lintas batas. Pelajari tinjauan kinerja lapangan dan arsitektur logistik terbaru.</p>
+                <a href="artikel1.html" class="btn-read">BACA DOKUMEN ►</a>
+            </div>
+        </article>
+
+        <article class="dossier-card">
+            <div class="dossier-img-wrapper">
+                <span class="dossier-status" style="background: #2E7D32;">MATRA TERESTRIAL</span>
+                <img src="https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&w=600&q=80" alt="Navigasi Terestrial" class="dossier-img">
+            </div>
+            <div class="dossier-content">
+                <div class="dossier-meta">
+                    <span>21 MEI 2026</span>
+                    <span style="color: var(--crimson-red);">KODE: T-04</span>
+                </div>
+                <h3 class="dossier-title">Panduan Bertahan Hidup dan Navigasi Darat: Catatan Taktis</h3>
+                <p class="dossier-excerpt">Jurnal lapangan Sersan Mayor Christy Nathalia: Membedah filosofi ransel ultralight, navigasi tanpa GPS, hingga psikologi ekspedisi di alam liar.</p>
+                <a href="artikel2.html" class="btn-read">BACA DOKUMEN ►</a>
+            </div>
+        </article>
+        <article class="dossier-card">
+            <div class="dossier-img-wrapper">
+                <span class="dossier-status" style="background: var(--crimson-red);">PROTOKOL KEAMANAN</span>
+                <img src="https://images.unsplash.com/photo-1542380387-a417cfdfc845?auto=format&fit=crop&w=600&q=80" alt="Protokol Ekspedisi" class="dossier-img">
+            </div>
+            <div class="dossier-content">
+                <div class="dossier-meta">
+                    <span>18 MEI 2026</span>
+                    <span style="color: var(--crimson-red);">KODE: P-01</span>
+                </div>
+                <h3 class="dossier-title">Anatomi Ekspedisi: Memitigasi Risiko Sebelum Sepatu Menyentuh Tanah</h3>
+                <p class="dossier-excerpt">Kupas tuntas aturan Turn-Around Time, Doktrin Redundansi, dan Asesmen Tiga Dimensi langsung dari Jenderal Raja Risma Imesia.</p>
+                <a href="artikel3.html" class="btn-read">BACA DOKUMEN ►</a>
+            </div>
+        </article>
+
+        <article class="dossier-card">
+            <div class="dossier-img-wrapper">
+                <span class="dossier-status" style="background: #1A237E;">MATRA SUBTERANEA</span>
+                <img src="https://images.unsplash.com/photo-1544253303-1250f242cbfa?auto=format&fit=crop&w=600&q=80" alt="Subteranea" class="dossier-img">
+            </div>
+            <div class="dossier-content">
+                <div class="dossier-meta">
+                    <span>12 MEI 2026</span>
+                    <span style="color: var(--crimson-red);">KODE: S-06</span>
+                </div>
+                <h3 class="dossier-title">Menembus Gelap Abadi: Rekomendasi Gear Vertikal & Gua</h3>
+                <p class="dossier-excerpt">Membongkar spesifikasi alat untuk Single Rope Technique (SRT). Dari pemilihan tali statis hingga The Rule of Three Lights bersama Aza Adinda Putri.</p>
+                <a href="artikel4.html" class="btn-read">BACA DOKUMEN ►</a>
+            </div>
+        </article>
+
+        <article class="dossier-card">
+            <div class="dossier-img-wrapper">
+                <span class="dossier-status" style="background: #006064;">MATRA HIDRODINAMIKA</span>
+                <img src="https://images.unsplash.com/photo-1544605943-34e8c14a275f?auto=format&fit=crop&w=600&q=80" alt="Hidrodinamika" class="dossier-img">
+            </div>
+            <div class="dossier-content">
+                <div class="dossier-meta">
+                    <span>5 MEI 2026</span>
+                    <span style="color: var(--crimson-red);">KODE: H-05</span>
+                </div>
+                <h3 class="dossier-title">Menjinakkan Arus: Anatomi Air dan Seni Bertahan Hidup</h3>
+                <p class="dossier-excerpt">Kapten Akbar Suhada menjelaskan taktik River Reading, penggunaan Rescue PFD yang tepat, hingga rahasia sistem katrol Z-Drag di perairan deras.</p>
+                <a href="artikel5.html" class="btn-read">BACA DOKUMEN ►</a>
+            </div>
+        </article>
+
+    </section>
+
+    <footer style="text-align: center; padding: 30px; border-top: 1px solid rgba(0,77,0,0.1); margin-top: 20px;">
+        <p style="font-size: 0.85rem; color: #666; font-weight: 600;">Hak Cipta &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protokol Ekspedisi | BENTANG MATRA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8f4f4;
+            --bg-paper: #FFFFFF;
+            --text-primary: #4D0000;
+            --text-body: #333333;
+            --border-primary: #004D00;
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-body); 
+            font-family: var(--font-primary); 
+            line-height: 1.8; 
+            background-image: radial-gradient(rgba(211, 47, 47, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Top Navigation */
+        .top-bar { 
+            background: var(--bg-paper); 
+            padding: 15px 40px; 
+            border-bottom: 2px solid var(--crimson-red); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .back-btn { 
+            text-decoration: none; 
+            font-weight: 700; 
+            color: var(--crimson-red); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--border-primary); }
+        .back-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .brand-text { font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; }
+
+        /* Article Layout */
+        .article-container { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            background: var(--bg-paper); 
+            padding: 60px 80px; 
+            border: 1px solid rgba(211,47,47,0.2); 
+            border-radius: 8px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+        }
+        
+        /* Header & Labels */
+        .article-header { border-bottom: 3px double rgba(211,47,47,0.2); padding-bottom: 30px; margin-bottom: 40px; text-align: center; }
+        
+        .matra-label {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-primary); font-size: 0.9rem; color: #fff;
+            font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;
+            background: var(--crimson-red); padding: 8px 25px;
+            border-radius: 2px; box-shadow: 0 4px 10px rgba(211,47,47,0.3);
+        }
+
+        .article-title { font-size: 2.5rem; color: var(--text-primary); font-weight: 800; line-height: 1.3; margin-bottom: 25px; text-transform: uppercase; }
+        /* Blogger Author Box */
+        .author-box {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            margin-top: 20px; padding: 15px; background: rgba(211,47,47,0.03);
+            border-radius: 8px; border: 1px solid rgba(211,47,47,0.1);
+            text-align: left;
+        }
+        .author-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--crimson-red); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .author-info { display: flex; flex-direction: column; }
+        .author-name { font-weight: 700; color: var(--crimson-red); font-size: 1.1rem; }
+        .author-title { font-size: 0.85rem; color: #555; font-weight: 600; text-transform: uppercase; }
+        .author-date { font-size: 0.8rem; color: #777; font-family: var(--font-terminal); }
+
+        /* Cover Image */
+        .article-image { width: 100%; height: 450px; object-fit: cover; border-radius: 8px; margin-bottom: 30px; border: 1px solid rgba(211,47,47,0.2); box-shadow: 0 10px 25px rgba(211,47,47,0.15); }
+        .image-caption { text-align: center; font-size: 0.8rem; color: #777; margin-top: -20px; margin-bottom: 40px; font-style: italic; font-family: var(--font-primary); }
+
+        /* Typography & Body */
+        .article-body p { margin-bottom: 25px; font-size: 1.1rem; color: #333; text-align: justify; }
+        
+        .first-letter::first-letter {
+            font-size: 3.5rem; font-weight: 800; color: var(--crimson-red); float: left;
+            line-height: 1; margin-right: 12px; margin-top: 5px;
+        }
+
+        .chapter-title { 
+            color: var(--text-primary); margin: 50px 0 20px 0; font-size: 1.6rem; 
+            font-weight: 700; border-bottom: 2px dashed rgba(211,47,47,0.2); padding-bottom: 10px;
+        }
+
+        /* Pro Tip Box (Protocol Style) */
+        .pro-tip {
+            background: #FFF8E1; border-left: 5px solid var(--crimson-red);
+            padding: 25px 30px; margin: 35px 0; border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(211,47,47,0.08); position: relative; overflow: hidden;
+        }
+        .pro-tip::after {
+            content: '!'; position: absolute; right: -15px; bottom: -30px;
+            font-size: 8rem; color: rgba(211,47,47,0.05); font-weight: 900; line-height: 1;
+        }
+        .pro-tip-title {
+            display: flex; align-items: center; gap: 10px; color: var(--crimson-red);
+            font-weight: 800; font-size: 1.1rem; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .pro-tip-title svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* Footer Blog */
+        .footer-blog {
+            margin-top: 60px; padding-top: 30px; border-top: 2px solid rgba(211,47,47,0.1);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .tags-container { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tag { background: rgba(211,47,47,0.05); color: var(--crimson-red); padding: 5px 15px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(211,47,47,0.2); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .top-bar { padding: 15px 20px; }
+            .brand-text { display: none; } 
+            .article-container { margin: 20px 10px; padding: 40px 25px; }
+            .article-title { font-size: 1.7rem; }
+            .article-image { height: 250px; }
+            .pro-tip { padding: 20px; }
+            .chapter-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <a href="buletin.html" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            KEMBALI KE ARSIP
+        </a>
+        <div class="brand-text">BENTANG MATRA</div>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <div class="article-header">
+                <div class="matra-label">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2L2 22h20L12 2zm0 3.83l7.07 14.17H4.93L12 5.83zM11 16h2v2h-2zm0-7h2v5h-2z"/></svg>
+                    PROTOKOL KEAMANAN
+                </div>
+                <h1 class="article-title">Anatomi Ekspedisi: Memitigasi Risiko Sebelum Sepatu Menyentuh Tanah</h1>
+                
+                <div class="author-box">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Raja Risma Imesia" class="author-avatar">
+                    <div class="author-info">
+                        <span class="author-name">Jenderal Raja Risma Imesia</span>
+                        <span class="author-title">Director of Risk Mitigation & Protocols</span>
+                        <span class="author-date">Ditulis pada: 18 Mei 2026 // Kode Rilis: H-02</span>
+                    </div>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1542380387-a417cfdfc845?auto=format&fit=crop&w=1200&q=80" alt="Tim Ekspedisi di Medan Ekstrem" class="article-image">
+            <div class="image-caption">Visual. Skuadron Evakuasi Taktis menembus medan bersalju. Kesiapan dimulai dari Markas, bukan di lapangan.</div>
+            <div class="article-body">
+                <p class="first-letter">Setiap kali sebuah tim gagal kembali ke <em>basecamp</em> tepat waktu, pertanyaan pertama saya bukan "Apa yang terjadi di sana?", melainkan "Apa yang dilewatkan saat perencanaan?". Saya, Raja Risma, telah melihat ratusan operasi lapangan. Kesimpulan saya tunggal: kecelakaan fatal jarang disebabkan oleh satu kesalahan besar. Ia selalu bermula dari akumulasi kelalaian kecil yang ditoleransi.</p>
+
+                <p>Sebagai Direktur Mitigasi Risiko, tugas saya adalah memastikan Anda semua paranoia secara terukur. Ekspedisi bukanlah ajang pembuktian nyali; ia adalah simulasi manajemen krisis yang bergerak. Bagi Anda para komandan lapangan maupun operator pemula, berikut adalah arsitektur protokol keselamatan mutlak yang harus mendarah daging sebelum Anda menginjakkan kaki di luar Markas.</p>
+
+                <h2 class="chapter-title">1. Asesmen Risiko "Tiga Dimensi" (3D Risk Matrix)</h2>
+                <p>Menganalisis medan hanya dari aplikasi peta digital adalah bunuh diri. Kita menggunakan pendekatan Tiga Dimensi: <strong>Medan, Meteorologi, dan Manusia</strong>.</p>
+                
+                <p>Jangan hanya melihat elevasi (ketinggian) gunung, pelajari juga struktur geologisnya. Apakah rawan longsor saat diguyur hujan? Bagaimana dengan sejarah cuaca mikro di area tersebut? Dan yang terpenting, evaluasi kapasitas manusia (tim Anda). Seorang ahli panjat tebing terbaik sekalipun akan menjadi beban jika ia sedang mengalami masalah psikologis atau cedera laten yang disembunyikan. Jujurlah pada kondisi tim saat *briefing*.</p>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        DOKTRIN REDUNDANSI (2 IS 1, 1 IS NONE)
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Dalam sistem logistik kita, satu sama dengan nol. Jika Anda hanya membawa satu pemantik api, dan itu basah, Anda tamat. Selalu bawa cadangan dari peralatan yang menunjang hidup dasar: <strong>Api, Navigasi (Peta cetak vs GPS), dan Komunikasi (HT vs Telepon Satelit).</strong> Pisahkan penyimpanannya; jangan taruh semua alat cadangan di tas yang sama.</p>
+                </div>
+
+                <h2 class="chapter-title">2. Protokol "Escape Route" (Jalur Ekstraksi)</h2>
+                <p>Saya tidak akan menandatangani izin operasi jika tim tidak melampirkan minimal dua Jalur Ekstraksi (Escape Routes). Rute utama Anda untuk mencapai puncak atau target operasi mungkin indah, tetapi jika terjadi badai atau ada rekan yang mengalami *Hypothermia*, Anda tidak mungkin kembali melalui rute tebing yang sama.</p>
+
+                <p>Jalur ekstraksi haruslah rute yang landai, mengarah ke sumber air turun (sungai biasanya mengarah ke peradaban/kampung terdekat), dan aman dilalui dalam kondisi visibilitas rendah atau saat Anda harus memapah rekan yang terluka. Tandai rute ekstraksi ini di peta topografi fisik Anda dengan spidol <em>fluorescent</em> sebelum berangkat.</p>
+
+                <h2 class="chapter-title">3. Manajemen Batas Balik (Turn-Around Time)</h2>
+                <p>Penyakit mematikan di alam liar bernama "Summit Fever" atau obsesi mencapai tujuan akhir. Anda sudah mendaki 8 jam, puncak tinggal 200 meter lagi, tapi langit mulai gelap dan cuaca memburuk. Banyak tim yang memaksakan diri maju karena merasa "tanggung".</p>
+
+                <p>Di Bentang Matra, kita menetapkan <strong>Turn-Around Time (Waktu Putar Balik) mutlak</strong>. Jika disepakati pukul 14:00 tim harus turun, maka di manapun posisi Anda, seberapa dekat pun dengan target, pada pukul 14:00 Anda harus berbalik arah. Turun gunung atau kembali ke <em>basecamp</em> membutuhkan kewaspadaan yang sama besarnya dengan saat berangkat. Statistik kami menunjukkan 80% insiden SAR terjadi pada perjalanan pulang karena otot dan fokus sudah melemah.</p>
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        PROTOKOL JENDERAL RISMA
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Keberanian sejati bukanlah tidak memiliki rasa takut, melainkan tahu kapan harus mundur untuk bertarung di lain hari. Pemimpin regu yang baik bukanlah yang berhasil membawa timnya ke puncak, tapi yang berhasil membawa <strong>semua anggota timnya pulang dengan selamat.</strong></p>
+                </div>
+
+                <h2 class="chapter-title">4. Komunikasi Terjadwal (Check-in Protocol)</h2>
+                <p>Keheningan adalah alarm bagi kami di Pusat Komando. Jangan menunggu hingga kondisi darurat baru Anda menyalakan radio komunikasi. Terapkan protokol <em>Check-in</em> setiap 4 jam, atau saat berpindah kontur ekstrim (misal: sebelum memasuki gua, atau sesudah menyeberang sungai deras).</p>
+
+                <p>Jika kami di pusat tidak menerima kontak dari Anda melewati batas waktu toleransi (biasanya 2 jam dari jadwal), Protokol ALPHA (Siaga SAR) akan otomatis terpicu. Komunikasi yang disiplin menghemat waktu pencarian seandainya hal terburuk benar-benar terjadi.</p>
+
+                <h2 class="chapter-title">Garis Akhir</h2>
+                <p>Saya ingin kalian memahami bahwa semua birokrasi, pengecekan alat berjam-jam, dan dokumen risiko yang saya wajibkan bukanlah untuk mempersulit kalian. Saya melihat lembar-lembar kertas itu sebagai nyawa kalian.</p>
+                
+                <p>Alam liar tidak memiliki belas kasihan, ia tidak peduli siapa Anda, seberapa tinggi pangkat Anda, atau seberapa mahal perlengkapan Anda. Ia hanya merespons persiapan. Jadi, rencanakan operasi Anda seolah-olah semuanya akan berjalan salah, dan Anda akan selalu siap.</p>
+                
+                <p>Operasikan dengan presisi, jaga satu sama lain, dan kembalilah ke markas. Saya menunggu laporan sukses kalian.</p>
+
+                <div class="footer-blog">
+                    <div class="tags-container">
+                        <span class="tag">#ProtokolKeamanan</span>
+                        <span class="tag">#MitigasiRisiko</span>
+                        <span class="tag">#ManajemenKrisis</span>
+                        <span class="tag">#BentangMatra</span>
+                        <span class="tag">#AturanEkspedisi</span>
+                    </div>
+                    <p style="font-family: var(--font-primary); font-size: 0.9rem; color: var(--text-primary); font-weight: 700; margin-top: 10px;">
+                        "SOP ditulis dengan tinta, namun ia dilahirkan dari darah dan keringat masa lalu."
+                    </p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; background: var(--bg-paper); border-top: 1px solid rgba(211,47,47,0.1);">
+        <p style="font-size: 0.85rem; color: #666; font-weight: 600;">Hak Cipta &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.</p>
+    </footer>
+</body>
+</html>

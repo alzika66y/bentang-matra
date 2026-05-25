@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENTANG MATRA | Matra Hidrodinamika</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Warna Identitas Utama (Dipertahankan dari matra lain) */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F4F7F4;
+            --text-primary: #004D00;
+            --border-primary: #004D00;
+            --crimson-red: #D32F2F;
+            
+            /* Warna Khusus Matra Hidrodinamika */
+            --hydro-blue: #00B4D8;
+            --hydro-glow: rgba(0, 180, 216, 0.4);
+            
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: #2D3748;
+            font-family: var(--font-primary);
+            min-height: 100vh;
+            padding: clamp(15px, 3vw, 40px) clamp(10px, 3vw, 20px);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-primary);
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 10px 30px rgba(0, 77, 0, 0.08);
+            border-radius: 4px;
+        }
+
+        .tactical-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid var(--border-primary);
+            padding-bottom: 20px;
+            margin-bottom: clamp(25px, 4vw, 35px);
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px dashed var(--border-primary);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            font-family: var(--font-terminal);
+            font-weight: bold;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-style: solid;
+        }
+
+        .sector-tag {
+            font-family: var(--font-terminal);
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            color: var(--text-primary);
+            font-weight: bold;
+            background: rgba(0, 77, 0, 0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid var(--border-primary);
+        }
+
+        .intro-section {
+            margin-bottom: 30px;
+        }
+
+        .pilar-badge {
+            font-family: var(--font-terminal);
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            color: var(--hydro-blue);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            color: var(--text-primary);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* -------------------------------------------
+           ANIMASI: SONAR KEDALAMAN & GELOMBANG PERMUKAAN
+        ------------------------------------------- */
+        .radar-monitor {
+            background: #010a12;
+            border: 2px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 180, 216, 0.15);
+        }
+
+        .radar-monitor::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,180,216,0.02) 50%, rgba(0,180,216,0.08) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .radar-screen {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 15px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            background: 
+                linear-gradient(rgba(0, 180, 216, 0.05) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(90deg, rgba(0, 180, 216, 0.05) 1px, transparent 1px) 0 0 / 20px 20px;
+        }
+
+        /* Permukaan Air (Arung Jeram) */
+        .surface-wave {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 180, 216, 0.15);
+            border-radius: 40%;
+            transform: translateX(-50%);
+            animation: wave-spin 6s linear infinite;
+            z-index: 2;
+        }
+
+        .surface-wave.two {
+            top: -160px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 45%;
+            animation: wave-spin 8s linear infinite reverse;
+        }
+
+        /* Kedalaman Sonar (Menyelam) */
+        .sonar-origin {
+            position: absolute;
+            bottom: 20px;
+            width: 8px;
+            height: 8px;
+            background: var(--hydro-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--hydro-blue);
+            z-index: 3;
+        }
+
+        .sonar-ping {
+            position: absolute;
+            bottom: 24px;
+            width: 0;
+            height: 0;
+            border: 2px solid var(--hydro-blue);
+            border-radius: 50%;
+            transform: translate(0, 50%);
+            animation: sonar-expand 3s ease-out infinite;
+            z-index: 2;
+        }
+
+        .sonar-ping.delay {
+            animation-delay: 1.5s;
+        }
+
+        /* Entitas Bawah Air / Target Benthic */
+        .target-blip {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            bottom: 40%; right: 30%;
+            box-shadow: 0 0 8px 2px var(--hydro-blue);
+            z-index: 4;
+            animation: blip-fade 3s infinite 1s;
+        }
+
+        @keyframes wave-spin {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+
+        @keyframes sonar-expand {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 300px; height: 300px; opacity: 0; }
+        }
+
+        @keyframes blip-fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .radar-telemetry {
+            font-family: var(--font-terminal);
+            color: var(--hydro-blue);
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(0, 180, 216, 0.3);
+            padding-top: 10px;
+            z-index: 5;
+        }
+
+        .control-panel {
+            border: 2px solid var(--border-primary);
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-title {
+            font-family: var(--font-terminal);
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-primary);
+            padding-bottom: 8px;
+        }
+
+        .layer-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2D3748;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .layer-btn:hover {
+            background: #e6eee6;
+        }
+
+        .layer-btn.active {
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .layer-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* -------------------------------------------
+           MODUL MATRA HIDRODINAMIKA
+        ------------------------------------------- */
+        .modul-section {
+            margin-top: 40px;
+            border-top: 2px dashed var(--border-primary);
+            padding-top: 30px;
+        }
+
+        .modul-title {
+            font-family: var(--font-terminal);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pilar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .pilar-card {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--border-primary);
+            padding: 25px 20px;
+            border-radius: 6px;
+            background: var(--bg-primary);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pilar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 77, 0, 0.15);
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .pilar-card:hover .pilar-desc,
+        .pilar-card:hover .tag {
+            color: #F4F7F4;
+        }
+
+        .pilar-card:hover .tag {
+            border-color: #F4F7F4;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pilar-card:hover svg {
+            stroke: var(--hydro-blue);
+        }
+
+        .pilar-icon {
+            margin-bottom: 15px;
+        }
+
+        .pilar-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .pilar-desc {
+            font-size: 0.85rem;
+            color: #4A5568;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .tag {
+            font-family: var(--font-terminal);
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border: 1px solid var(--border-primary);
+            border-radius: 3px;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tag.highlight {
+            background: rgba(211, 47, 47, 0.1);
+            border-color: var(--crimson-red);
+            color: var(--crimson-red);
+        }
+
+        .pilar-card:hover .tag.highlight {
+            background: var(--crimson-red);
+            color: white;
+            border-color: var(--crimson-red);
+        }
+
+        @media (max-width: 900px) {
+            .pilar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .radar-monitor {
+                min-height: 320px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tactical-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-back, .sector-tag {
+                text-align: center;
+                width: 100%;
+            }
+            .radar-telemetry {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            .pilar-grid {
+                grid-template-columns: 1fr;
+            }
+            .surface-wave {
+                width: 300px; height: 300px;
+                top: -100px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+        
+        <header class="tactical-header">
+            <a href="index.html" class="btn-back">&larr; [KEMBALI KE SEKTOR UTAMA]</a>
+            <div class="sector-tag">// PUSAT_KENDALI_MATRA_HIDRODINAMIKA</div>
+        </header>
+
+        <section class="intro-section">
+            <span class="pilar-badge">[MODUL ANTARMUKA AQUATIK]</span>
+            <h1 class="main-title">Eksplorasi Arus Lintas Alam & Kedalaman Oseanografi</h1>
+            <p style="color: #4A5568; font-size: 0.95rem; line-height: 1.6; max-width: 800px;">
+                Sistem analisis hidrospasial untuk membaca dinamika jeram permukaan secara real-time dan kalkulasi tekanan batimetri bawah laut untuk operasi penyelaman presisi.
+            </p>
+        </section>
+
+        <div class="dashboard-grid">
+            
+            <div class="radar-monitor">
+                <div style="font-family: var(--font-terminal); color: var(--hydro-blue); font-size: 0.75rem; z-index: 5;">
+                    [LIVE FEED // HYDRO-SONAR ARRAY V.3.1]
+                </div>
+                
+                <div class="radar-screen">
+                    <div class="surface-wave"></div>
+                    <div class="surface-wave two"></div>
+                    
+                    <div class="sonar-origin"></div>
+                    <div class="sonar-ping"></div>
+                    <div class="sonar-ping delay"></div>
+                    <div class="target-blip"></div>
+                </div>
+
+                <div class="radar-telemetry">
+                    <span>CURRENT: 14 KNOTS (RAPIDS)</span>
+                    <span>DEPTH: -42M (BENTHIC)</span>
+                    <span>VISIBILITY: 8 METERS</span>
+                </div>
+            </div>
+
+            <div class="control-panel">
+                <div class="panel-title">// LAPISAN DATA (LAYERS)</div>
+                
+                <button class="layer-btn active">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                    </svg>
+                    Dinamika Arus Permukaan (River)
+                </button>
+
+                <button class="layer-btn">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    Pemetaan Batimetri Oseanografi
+                </button>
+
+                <button class="layer-btn">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Kalkulator Waktu Dekompresi
+                </button>
+            </div>
+
+        </div>
+
+        <section class="modul-section">
+            <h2 class="modul-title">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                DIREKTORI PILAR OPERASIONAL
+            </h2>
+
+            <div class="pilar-grid">
+                
+                <a href="pilar1_peta_hidrografi.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 01: Peta Hidrografi</h3>
+                    <p class="pilar-desc">Koordinat rute pengarungan sungai grade I-V dan pemetaan titik penyelaman laut lepas (dive sites).</p>
+                    <div class="tags-container">
+                        <span class="tag">Peta Jeram</span>
+                        <span class="tag">Batimetri Laut</span>
+                    </div>
+                </a>
+
+                <a href="pilar2_filosofi_sejarah.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 02: Filosofi & Sejarah</h3>
+                    <p class="pilar-desc">Arsip evolusi olahraga arus deras, sejarah penjelajahan bawah laut, serta etos menjaga kelestarian perairan.</p>
+                    <div class="tags-container">
+                        <span class="tag">Histori Maritim</span>
+                        <span class="tag">Etika Air</span>
+                    </div>
+                </a>
+
+                <a href="pilar3_disiplin_ilmu.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 03: Disiplin Ilmu</h3>
+                    <p class="pilar-desc">Kajian hidrologi sungai, teknik membaca morfologi arus (hidrolika), serta sains gas dekompresi oseanografi.</p>
+                    <div class="tags-container">
+                        <span class="tag">Hidrologi</span>
+                        <span class="tag">Morfologi Arus</span>
+                        <span class="tag">Sains Selam</span>
+                    </div>
+                </a>
+
+                <a href="pilar4_protokol_operasi.html" class="pilar-card">
+                    <div class="pilar-icon">
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="var(--text-primary)">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3>Pilar 04: Protokol & Operasi</h3>
+                    <p class="pilar-desc">SOP Swiftwater Rescue, standar keselamatan Scuba K3, manajemen alat selam, dan perpustakaan modul luring.</p>
+                    <div class="tags-container">
+                        <span class="tag">SOP Rescue</span>
+                        <span class="tag">K3 Air</span>
+                        <span class="tag highlight">PDF Modul Selam ↓</span>
+                        <span class="tag highlight">PDF Jeram ↓</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

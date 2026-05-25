@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Lapangan Terestrial | BENTANG MATRA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f4f8f4;
+            --bg-paper: #FFFFFF;
+            --text-primary: #004D00;
+            --text-body: #333333;
+            --border-primary: #004D00;
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-body); 
+            font-family: var(--font-primary); 
+            line-height: 1.8; 
+            background-image: radial-gradient(rgba(0, 77, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Top Navigation */
+        .top-bar { 
+            background: var(--bg-paper); 
+            padding: 15px 40px; 
+            border-bottom: 2px solid var(--border-primary); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .back-btn { 
+            text-decoration: none; 
+            font-weight: 700; 
+            color: var(--border-primary); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--crimson-red); }
+        .back-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .brand-text { font-weight: 800; color: var(--text-primary); letter-spacing: 2px; }
+
+        /* Article Layout */
+        .article-container { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            background: var(--bg-paper); 
+            padding: 60px 80px; 
+            border: 1px solid rgba(0,77,0,0.2); 
+            border-radius: 8px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+        }
+        
+        /* Header & Labels */
+        .article-header { border-bottom: 3px double rgba(0,77,0,0.2); padding-bottom: 30px; margin-bottom: 40px; text-align: center; }
+        
+        .matra-label {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-primary); font-size: 0.9rem; color: #fff;
+            font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;
+            background: #2E7D32; padding: 8px 25px;
+            border-radius: 20px; box-shadow: 0 4px 10px rgba(46,125,50,0.3);
+        }
+
+        .article-title { font-size: 2.5rem; color: var(--text-primary); font-weight: 800; line-height: 1.3; margin-bottom: 25px; }
+        /* Blogger Author Box */
+        .author-box {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            margin-top: 20px; padding: 15px; background: rgba(0,77,0,0.02);
+            border-radius: 8px; border: 1px solid rgba(0,77,0,0.05);
+            text-align: left;
+        }
+        .author-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--gold-omega); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .author-info { display: flex; flex-direction: column; }
+        .author-name { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
+        .author-title { font-size: 0.85rem; color: var(--crimson-red); font-weight: 600; }
+        .author-date { font-size: 0.8rem; color: #777; font-family: var(--font-terminal); }
+
+        /* Cover Image */
+        .article-image { width: 100%; height: 450px; object-fit: cover; border-radius: 8px; margin-bottom: 30px; border: 1px solid rgba(0,77,0,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .image-caption { text-align: center; font-size: 0.8rem; color: #777; margin-top: -20px; margin-bottom: 40px; font-style: italic; font-family: var(--font-primary); }
+
+        /* Typography & Body */
+        .article-body p { margin-bottom: 25px; font-size: 1.1rem; color: #333; text-align: justify; }
+        
+        .first-letter::first-letter {
+            font-size: 3.5rem; font-weight: 800; color: #2E7D32; float: left;
+            line-height: 1; margin-right: 12px; margin-top: 5px;
+        }
+
+        .chapter-title { 
+            color: var(--text-primary); margin: 50px 0 20px 0; font-size: 1.6rem; 
+            font-weight: 700; border-bottom: 2px dashed rgba(0,77,0,0.2); padding-bottom: 10px;
+        }
+
+        /* Pro Tip Box (Blogger Style) */
+        .pro-tip {
+            background: #FFF8E1; border-left: 5px solid var(--gold-omega);
+            padding: 25px 30px; margin: 35px 0; border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.1);
+        }
+        .pro-tip-title {
+            display: flex; align-items: center; gap: 10px; color: #B08D00;
+            font-weight: 800; font-size: 1.1rem; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .pro-tip-title svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* Footer Blog */
+        .footer-blog {
+            margin-top: 60px; padding-top: 30px; border-top: 2px solid rgba(0,77,0,0.1);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .tags-container { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tag { background: rgba(0,77,0,0.05); color: var(--text-primary); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(0,77,0,0.1); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .top-bar { padding: 15px 20px; }
+            .brand-text { display: none; } 
+            .article-container { margin: 20px 10px; padding: 40px 25px; }
+            .article-title { font-size: 1.8rem; }
+            .article-image { height: 250px; }
+            .pro-tip { padding: 20px; }
+            .chapter-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <a href="buletin.html" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            KEMBALI KE ARSIP
+        </a>
+        <div class="brand-text">BENTANG MATRA</div>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <div class="article-header">
+                <div class="matra-label">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22l-9-12z"/></svg>
+                    MATRA TERESTRIAL
+                </div>
+                <h1 class="article-title">Panduan Bertahan Hidup dan Navigasi Darat: Catatan Taktis dari Lapangan</h1>
+                
+                <div class="author-box">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80" alt="Christy Nathalia" class="author-avatar">
+                    <div class="author-info">
+                        <span class="author-name">Sersan Mayor Christy Nathalia</span>
+                        <span class="author-title">Terrestrial Sector Adjutant</span>
+                        <span class="author-date">Ditulis pada: 21 Mei 2026 // Kode Rilis: S-04</span>
+                    </div>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&w=1200&q=80" alt="Hutan Lebat" class="article-image">
+            <div class="image-caption">Jalur eksplorasi Sektor Alpha, di mana alat navigasi digital sering kali menyerah pada alam.</div>
+            <div class="article-body">
+                <p class="first-letter">Halo rekan-rekan operasional! Berada di garis depan Matra Terestrial di bawah komando Kapten Diky Kurniawan telah mengajarkan saya satu hal mutlak: alam tidak pernah membaca buku manual yang kita pelajari di Markas Pusat. Di hutan belantara, di atas punggungan bukit yang tak bernama, atau di lembah tanpa sinyal, pengetahuan adalah satu-satunya pelindung sejati kita.</p>
+
+                <p>Sebagai Adjutant yang sering mengatur ritme logistik dan pergerakan tim darat, saya sering melihat operator muda membuat kesalahan elementer. Kali ini, saya ingin membagikan catatan lapangan saya—sebuah jurnal taktis, dari saya untuk kalian. Mari kita bedah bagaimana cara bertahan hidup dan menavigasi rintangan terestrial saat teknologi canggih kita tiba-tiba menjadi sekadar beban seberat 200 gram di dalam saku.</p>
+
+                <h2 class="chapter-title">1. Filosofi Ransel: Seni Membawa Kehidupan</h2>
+                <p>Kesalahan terbesar seorang amatir adalah mengemas ketakutannya ke dalam ransel. Mereka membawa segala hal karena takut kekurangan, padahal di medan terestrial, mobilitas adalah kunci kelangsungan hidup. Dalam doktrin <em>Ultralight Tactical</em>, kita tidak membuang barang penting, kita hanya mengeliminasi redundansi.</p>
+
+                <p>Setiap gram yang kalian bawa akan terasa sepuluh kali lipat lebih berat saat elevasi mencapai sudut 45 derajat. Oleh karena itu, kita selalu berpegang pada sistem Layering untuk pakaian, dan modularitas untuk peralatan. Pisau survival Anda bukan sekadar alat potong; ia harus bisa digunakan sebagai pemantik api (batu api), palu darurat, dan alat gali. Multifungsi adalah kata sandi kita.</p>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        TIPS TAKTIS CHRISTY
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Gunakan kantong <em>dry-bag</em> berwarna terang (merah/oranye) di dalam ransel Anda. Selain menjaga perlengkapan tetap kering saat menyeberang sungai, kantong ini bisa dibalik dan digantung sebagai panel sinyal darurat (SOS) untuk Matra SAR jika kalian tersesat.</p>
+                </div>
+
+                <h2 class="chapter-title">2. Membaca Alam Saat GPS Mati</h2>
+                <p>Satelit bisa terhalang kanopi hutan, baterai bisa mati, dan layar bisa pecah. Pada titik ini, orientasi medan klasik mengambil alih. Kapten Diky selalu menekankan agar kita tidak pernah menjadi "buta" hanya karena kehilangan sinyal.</p>
+                
+                <p>Pertama, pelajari arah matahari. Jika Anda berada di belahan bumi selatan seperti sebagian besar operasi kita, bayangan pada tengah hari akan selalu jatuh ke arah selatan. Selain itu, perhatikan vegetasi. Di hutan tropis yang lebat, lumut cenderung tumbuh lebih tebal di sisi pohon yang paling sedikit terpapar sinar matahari (biasanya sisi yang menghadap ke kutub terdekat).</p>
+
+                <p>Jika terpaksa bergerak di malam hari (meskipun sangat tidak disarankan kecuali dalam evakuasi kritis), bintang adalah sekutu Anda. Belajarlah mengenali rasi bintang Pari (Crux) untuk menentukan arah Selatan sejati. Ingat, alam selalu memberikan rambu-rambu, asalkan kita tahu cara membacanya.</p>
+
+                <h2 class="chapter-title">3. Biosfer adalah Sekutu, Bukan Musuh</h2>
+                <p>Manusia modern sering melihat hutan sebagai lingkungan yang bermusuhan. Padahal, biosfer menyediakan segalanya jika kita menghormatinya. Ancaman terbesar di lapangan bukanlah predator, melainkan dehidrasi dan <em>waterborne diseases</em> (penyakit dari air kotor).</p>
+
+                <p>Aturan emasnya: air yang mengalir lebih aman daripada air yang menggenang. Jika Anda menemukan sumber air yang meragukan, ingatlah teknik filtrasi darurat. Gunakan botol yang dipotong, lapisi dengan arang dari sisa api unggun kalian, pasir, dan kerikil berulang-ulang. Meskipun begitu, Jenderal Arif dari Logistik selalu membekali kita dengan tablet purifikasi air—jangan malas menggunakannya!</p>
+
+                <p>Untuk makanan, jangan pernah mencoba memakan tumbuhan yang tidak Anda kenali 100%. Ikuti aturan uji kelayakan konsumsi: gosok ke kulit tangan, tunggu 15 menit. Jika aman, sentuhkan ke bibir, tunggu. Jika tidak ada reaksi panas atau gatal, kunyah sedikit tanpa menelan. Kesalahan dalam *foraging* (mencari makan) bisa berakibat fatal dalam hitungan jam.</p>
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        ATURAN SURVIVAL "RULE OF 3"
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Manusia bisa bertahan <strong>3 menit</strong> tanpa udara/oksigen (terutama bagi rekan-rekan Hidrodinamika), <strong>3 jam</strong> tanpa tempat berlindung di cuaca ekstrem, <strong>3 hari</strong> tanpa air minum, dan <strong>3 minggu</strong> tanpa makanan. Prioritaskan tindakan Anda berdasarkan aturan ini saat kondisi memburuk.</p>
+                </div>
+
+                <h2 class="chapter-title">4. Psikologi Ekspedisi: Benteng Terakhir</h2>
+                <p>Saya telah melihat prajurit dengan fisik sekuat baja hancur secara mental dalam waktu kurang dari 48 jam saat terisolasi. Otot yang kuat tidak ada artinya jika pikiran Anda dipenuhi kepanikan. Dalam operasi Matra Terestrial, kebosanan, kelelahan, dan ketakutan adalah musuh tak kasat mata.</p>
+
+                <p>Ketika Anda menyadari bahwa Anda tersesat, hal pertama yang harus dilakukan adalah <strong>S.T.O.P</strong> (Stop, Think, Observe, Plan). Berhenti bergerak. Kepanikan akan membuat Anda berjalan berputar-putar menghabiskan kalori. Duduklah, minum sedikit air, dan berikan waktu 15 menit bagi detak jantung Anda untuk kembali normal sebelum mulai mengambil keputusan.</p>
+
+                <p>Buatlah rutinitas kecil. Membangun bivak (tempat berlindung), mengumpulkan kayu bakar, atau merawat perlengkapan akan membuat pikiran Anda tetap fokus dan waras. Harapan itu diciptakan, bukan ditunggu.</p>
+
+                <h2 class="chapter-title">Kesimpulan Lapangan</h2>
+                <p>Menjadi bagian dari Bentang Matra berarti kita bersedia melangkah ke tempat yang dihindari orang lain. Persiapan yang matang, peralatan yang tepat, dan mentalitas pantang menyerah adalah trinitas operasi kita.</p>
+                
+                <p>Semoga catatan kecil ini bisa mengingatkan kembali rekan-rekan akan dasar-dasar yang sering terlupakan saat kita terlalu sibuk melihat layar digital. Tetap awas, tetap rendah hati di hadapan alam, dan yang terpenting: pastikan kita semua pulang dengan selamat ke Markas Pusat.</p>
+                
+                <p>Sampai jumpa di <em>briefing</em> selanjutnya!</p>
+
+                <div class="footer-blog">
+                    <div class="tags-container">
+                        <span class="tag">#NavigasiDarat</span>
+                        <span class="tag">#Survival</span>
+                        <span class="tag">#MatraTerestrial</span>
+                        <span class="tag">#Taktis</span>
+                        <span class="tag">#Biosfer</span>
+                    </div>
+                    <p style="font-family: var(--font-primary); font-size: 0.9rem; color: var(--text-primary); font-weight: 700; margin-top: 10px;">
+                        "Kendalikan Pikiranmu, Maka Alam Akan Mengikuti."
+                    </p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; background: var(--bg-paper); border-top: 1px solid rgba(0,77,0,0.1);">
+        <p style="font-size: 0.85rem; color: #666; font-weight: 600;">Hak Cipta &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.</p>
+    </footer>
+</body>
+</html>

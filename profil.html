@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENTANG MATRA | Profil & Otoritas</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --text-primary: #004D00;
+            --border-primary: #004D00;
+            --radar-green: #00FF41;
+            --radar-green-dim: rgba(0, 255, 65, 0.3);
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-secondary); 
+            color: var(--text-primary); 
+            font-family: var(--font-primary); 
+            background-image: radial-gradient(rgba(0, 77, 0, 0.05) 1px, transparent 1px); 
+            background-size: 20px 20px;
+        }
+        
+        .command-bar { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 2px solid var(--border-primary); }
+        .brand-cluster { display: flex; align-items: center; gap: 15px; }
+        
+        .btn-back {
+            text-decoration: none; color: var(--text-primary); font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px; border: 1px solid var(--border-primary);
+            padding: 5px 15px; border-radius: 4px; transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--border-primary); color: white; }
+
+        /* HEADER HALAMAN */
+        .page-header { text-align: center; padding: 60px 20px 40px; }
+        .breadcrumb { font-family: var(--font-terminal); font-size: 0.85rem; color: #666; margin-bottom: 15px; letter-spacing: 2px; }
+        .page-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--text-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: -1px; }
+
+        /* KONTEN PROFIL */
+        .profil-container { max-width: 1000px; margin: 0 auto 80px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 50px; }
+        
+        .profil-section {
+            background: var(--bg-primary); border: 1px solid rgba(0, 77, 0, 0.2); border-radius: 8px;
+            padding: 40px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .profil-section::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--border-primary); border-radius: 8px 0 0 8px;
+        }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(0,77,0,0.2); margin-left: 15px; }
+        
+        /* SAMBUTAN KHUSUS */
+        .sambutan-grid { display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: center; }
+        .foto-panglima { width: 100%; height: 250px; object-fit: cover; border: 2px solid var(--gold-omega); border-radius: 4px; filter: grayscale(100%); }
+        .sambutan-text { font-size: 1rem; line-height: 1.8; color: #444; }
+        .sambutan-sign { margin-top: 20px; font-family: var(--font-terminal); font-weight: bold; color: var(--text-primary); }
+
+        /* VISI MISI */
+        .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .vm-card { padding: 25px; border: 1px dashed rgba(0,77,0,0.3); background: #fdfdfd; border-radius: 6px; }
+        .vm-card h4 { color: var(--crimson-red); font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
+        .vm-list { list-style: none; }
+        .vm-list li { position: relative; padding-left: 25px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.6; color: #555; }
+        .vm-list li::before { content: '►'; position: absolute; left: 0; color: var(--gold-omega); font-size: 0.8rem; top: 4px; }
+
+        @media (max-width: 768px) {
+            .sambutan-grid, .vm-grid { grid-template-columns: 1fr; }
+            .foto-panglima { max-width: 200px; margin: 0 auto; display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="command-bar">
+        <div class="brand-cluster">
+            <div>
+                <h1 style="font-size: 1.2rem; font-weight: 700; margin:0;">BENTANG MATRA</h1>
+                <span style="font-size:0.65rem; font-weight: 300; letter-spacing: 1px;">PUSAT KOMANDO INTELIJEN</span>
+            </div>
+        </div>
+        <a href="index.html" class="btn-back">◄ Kembali ke Markas</a>
+    </header>
+
+    <section class="page-header">
+        <div class="breadcrumb">[ DIREKTORI / OTORITAS / PROFIL UTAMA ]</div>
+        <h2 class="page-title">DOKUMEN IDENTITAS MATRA</h2>
+    </section>
+
+    <div class="profil-container">
+        
+        <div class="profil-section">
+            <h3 class="section-title" style="color: var(--border-primary);">Amanat Panglima Komando</h3>
+            <div class="sambutan-grid">
+                <div>
+                    <img src="alzika.jpg" alt="Panglima Alzika" class="foto-panglima" onerror="this.src='https://via.placeholder.com/200x250?text=FOTO+PANGLIMA'">
+                </div>
+                <div class="sambutan-text">
+                    <p style="margin-bottom: 15px; font-style: italic;">"Keselamatan bukanlah hasil dari keberuntungan, melainkan kalkulasi yang presisi."</p>
+                    <p style="margin-bottom: 15px;">Selamat datang di Pusat Komando BENTANG MATRA. Sejak diinisiasi, kami tidak hanya merancang sebuah organisasi, melainkan sebuah sistem saraf yang merespons anomali di segala medan: Terestrial, Subteranea, Hidrodinamika, hingga Evakuasi Taktis.</p>
+                    <p>Kami memastikan bahwa setiap personel, logistik, dan data strategis terintegrasi dalam satu komando mutlak. Melalui teknologi, disiplin baja, dan kedaulatan topografi, Bentang Matra siap mengawal setiap misi eksplorasi dan operasi di garis depan.</p>
+                    <div class="sambutan-sign">
+                        <span style="font-size: 1.2rem; font-family: var(--font-primary);">Alzika Yardansyah</span><br>
+                        Panglima Komando Ekspedisi
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profil-section">
+            <h3 class="section-title">Rekam Jejak & Sejarah Historis</h3>
+            <p style="font-size: 1rem; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                BENTANG MATRA diinisiasi secara resmi pada tahun <strong>2026</strong>. Kelahiran komando ini dipicu oleh kebutuhan mendesak akan sebuah otoritas tunggal yang mampu mengendalikan operasi di medan yang paling ekstrem dan tidak terduga.
+            </p>
+            <p style="font-size: 1rem; line-height: 1.8; color: #444;">
+                Berawal dari diskusi taktis para pionir lapangan yang menyadari bahwa koordinasi parsial tidak lagi memadai, dibentuklah 4 Pilar Matra Utama. Kini, dengan status otoritas UNGGUL dan skala operasi GLOBAL, Bentang Matra bertransformasi dari sekadar gagasan operasional menjadi pusat intelijen dan evakuasi kelas dunia yang bermitra dengan berbagai otoritas geospasial dan kemanusiaan internasional.
+            </p>
+        </div>
+
+        <div class="profil-section" style="background: transparent; border: none; padding: 0; box-shadow: none;">
+            <div class="vm-grid">
+                <div class="vm-card">
+                    <h4>VISI STRATEGIS [OMEGA]</h4>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                        Menjadi Pusat Komando Intelijen dan Operasi Taktis kelas dunia yang memegang kendali mutlak atas keselamatan, kedaulatan data, dan harmoni penjelajahan di seluruh biosfer dan dimensi geografis.
+                    </p>
+                </div>
+                <div class="vm-card">
+                    <h4>MISI OPERASIONAL [ALPHA]</h4>
+                    <ul class="vm-list">
+                        <li>Mengintegrasikan navigasi darat dan adaptasi ekologi untuk <strong>Kedaulatan Topografi</strong>.</li>
+                        <li>Mengeksekusi penetrasi elevasi dan ruang negatif bawah tanah secara aman.</li>
+                        <li>Mengharmonisasikan kalkulasi fluida untuk operasi maritim dan hidrodinamika.</li>
+                        <li>Menyelenggarakan sistem Evakuasi Taktis (SAR) presisi sebagai benteng nyawa terakhir.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="text-align: center; padding: 30px; color: #666; font-size: 0.85rem; border-top: 1px dashed rgba(0,77,0,0.2);">
+        Copyright &copy; 2026 Bentang Matra. Developed by ALZIKA YARDANSYAH.
+    </footer>
+
+</body>
+</html>

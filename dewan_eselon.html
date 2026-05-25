@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENTANG MATRA | Dewan Eselon</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --text-primary: #004D00;
+            --border-primary: #004D00;
+            --radar-green: #00FF41;
+            --gold-omega: #FFC107;
+            --crimson-red: #D32F2F;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-secondary); 
+            color: var(--text-primary); 
+            font-family: var(--font-primary); 
+            background-image: radial-gradient(rgba(0, 77, 0, 0.05) 1px, transparent 1px); 
+            background-size: 20px 20px;
+        }
+
+        .command-bar { 
+            position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); 
+            border-bottom: 2px solid var(--border-primary); 
+        }
+        .brand-cluster { display: flex; align-items: center; gap: 15px; }
+        .btn-back {
+            text-decoration: none; color: var(--text-primary); font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px; border: 1px solid var(--border-primary);
+            padding: 5px 15px; border-radius: 4px; transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--border-primary); color: white; }
+
+        .page-header { text-align: center; padding: 60px 20px 40px; }
+        .breadcrumb { font-family: var(--font-terminal); font-size: 0.85rem; color: #666; margin-bottom: 15px; letter-spacing: 2px; }
+        .page-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--text-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: -1px; }
+        .status-indicator { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-terminal); font-size: 0.8rem; background: #002200; color: var(--radar-green); padding: 5px 15px; border-radius: 20px; border: 1px solid var(--radar-green); }
+        .blink-dot { width: 8px; height: 8px; background-color: var(--radar-green); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .dossier-card {
+            background: var(--bg-primary); border: 1px solid rgba(0, 77, 0, 0.2); border-radius: 8px;
+            padding: 25px 25px 45px 25px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; display: flex; flex-direction: column; align-items: center;
+        }
+        .dossier-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--border-primary), var(--gold-omega));
+            transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; z-index: 3;
+        }
+        .dossier-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,77,0,0.15); border-color: var(--border-primary); }
+        .dossier-card:hover::before { transform: scaleX(1); }
+        .dossier-card > * { position: relative; z-index: 1; }
+
+        .watermark {
+            position: absolute; top: 50%; left: 50%; width: 85%; height: 85%;
+            background-image: url('Logo_Bentang_Matra.svg'); background-repeat: no-repeat;
+            background-position: center; background-size: contain; 
+            opacity: 0.2; transform: translate(-50%, -50%); pointer-events: none; z-index: 0 !important;
+        }
+
+        .stamp {
+            position: absolute; bottom: 15px; right: -10px; font-family: var(--font-terminal);
+            font-weight: bold; font-size: 0.55rem; color: var(--crimson-red);
+            border: 2px solid var(--crimson-red); padding: 4px 8px; border-radius: 4px;
+            transform: rotate(-15deg); opacity: 0.6; z-index: 2 !important; pointer-events: none;
+            background: rgba(255, 255, 255, 0.5); text-align: center; line-height: 1.2;
+        }
+
+        .photo-frame {
+            width: 140px; height: 160px; margin: 0 auto 15px auto; border-radius: 6px;
+            border: 2px solid var(--border-primary); padding: 3px; background: #EEE;
+            position: relative; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+        
+        .dossier-name { font-size: 1.15rem; font-weight: 800; color: var(--text-primary); text-transform: uppercase; margin-bottom: 8px; line-height: 1.2; }
+        
+        .satuan-badge {
+            font-family: var(--font-terminal); font-size: 0.65rem; font-weight: bold;
+            padding: 4px 10px; border-radius: 4px; margin-bottom: 15px;
+            text-transform: uppercase; letter-spacing: 1px; border: 1px solid currentColor;
+            display: inline-block; z-index: 2; position: relative;
+        }
+        .satuan-terestrial { color: #2E7D32; background: rgba(46, 125, 50, 0.1); }
+        .satuan-subteranea { color: #616161; background: rgba(97, 97, 97, 0.1); }
+        .satuan-hidro { color: #0277BD; background: rgba(2, 119, 189, 0.1); }
+        .satuan-sar { color: #C62828; background: rgba(198, 40, 40, 0.1); }
+        
+        .dossier-role { font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 10px; width: 100%; margin-bottom: 5px; }
+        .dossier-function { font-size: 0.8rem; color: #444; font-style: italic; line-height: 1.4; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(0,77,0,0.2); width: 100%; }
+
+        .keahlian-block { font-family: var(--font-terminal); font-size: 0.75rem; text-align: left; width: 100%; line-height: 1.5; color: #333; margin-bottom: 20px; }
+        .keahlian-header { font-weight: bold; color: var(--border-primary); display: block; margin-bottom: 5px; }
+        .supreme-card .keahlian-header { color: var(--gold-omega); }
+        .keahlian-item { display: block; }
+        .keahlian-item::before { content: "• "; color: var(--crimson-red); font-weight: bold; }
+
+        .dossier-meta { font-family: var(--font-terminal); font-size: 0.75rem; color: #888; text-align: left; width: 100%; background: #F9F9F9; padding: 10px; border-radius: 4px; border: 1px solid #E0E0E0; display: flex; flex-direction: column; gap: 3px; margin-top: auto; z-index: 3 !important; position: relative; }
+
+        .supreme-container { max-width: 500px; margin: 0 auto 60px auto; }
+        .supreme-card { border: 2px solid var(--gold-omega); background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF5 100%); padding: 40px 40px 60px 40px; }
+        .supreme-card .photo-frame { width: 180px; height: 210px; border-color: var(--gold-omega); }
+        .supreme-card .dossier-name { font-size: 1.5rem; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 60px auto; padding: 0 20px; }
+        
+        .section-divider { display: flex; align-items: center; text-align: center; max-width: 1200px; margin: 0 auto 40px auto; padding: 0 20px; }
+        .section-divider::before, .section-divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(0,77,0,0.3); }
+        .section-divider::before { margin-right: 1em; }
+        .section-divider::after { margin-left: 1em; }
+        .section-divider span { font-weight: 700; font-size: 1.2rem; color: var(--text-primary); letter-spacing: 2px; }
+
+        /* PANGKAT PENERBANG KOMERSIAL BARU */
+        .epaulet { 
+            display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; 
+            background-color: #111; padding: 8px 10px; border-radius: 4px; margin-bottom: 15px; 
+            border: 1px solid #333; box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 0 5px rgba(255,255,255,0.05); 
+            z-index: 2; 
+        }
+        .pilot-stripe { 
+            width: 35px; height: 6px; 
+            background: linear-gradient(90deg, #B8860B 0%, #FFF700 30%, #FFD700 70%, #B8860B 100%); 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.8); border-radius: 1px; border: 1px solid rgba(0,0,0,0.6); 
+        }
+    </style>
+</head>
+<body>
+    <header class="command-bar">
+        <div class="brand-cluster">
+            <div>
+                <h1 style="font-size: 1.2rem; font-weight: 700; margin:0;">BENTANG MATRA</h1>
+                <span style="font-size:0.65rem; font-weight: 300; letter-spacing: 1px;">PUSAT KOMANDO INTELIJEN</span>
+            </div>
+        </div>
+        <a href="index.html" class="btn-back">◄ Kembali ke Markas</a>
+    </header>
+
+    <section class="page-header">
+        <div class="breadcrumb">[ DIREKTORI / OTORITAS / DEWAN ESELON ]</div>
+        <h2 class="page-title">DOSSIER KOMANDO TAKTIS</h2>
+        <div class="status-indicator">
+            <div class="blink-dot"></div>
+            SISTEM OTORITAS: TERVERIFIKASI
+        </div>
+    </section>
+
+    <div class="supreme-container">
+        <div class="dossier-card supreme-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kapten (4 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="alzika.jpg" alt="Foto Alzika" onerror="this.src='https://via.placeholder.com/180x210?text=FOTO+KOSONG'">
+            </div>
+            <h3 class="dossier-name">Alzika Yardansyah</h3>
+            <div class="satuan-badge satuan-terestrial">Matra Terestrial & Biosfer</div>
+            <span class="dossier-role" style="color: var(--border-primary); font-weight: 800;">Panglima Komando Ekspedisi</span>
+            <p class="dossier-function">"Pemegang otoritas tertinggi, mengendalikan seluruh komando strategis dan taktis ekspedisi Bentang Matra secara penuh."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Manajemen Krisis OMEGA</span>
+                <span class="keahlian-item">Strategi Terestrial Global</span>
+                <span class="keahlian-item">Komando Terpadu Antar Matra</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>REG ID: BMT-26-001</div>
+                <div>GOL. DARAH: B+</div>
+                <div>AKSES: OMEGA / TERTINGGI</div>
+                <div style="color:var(--text-primary); font-weight:bold;">STATUS: ACTIVE DUTY</div>
+            </div>
+        </div>
+    </div>
+    <div class="section-divider">
+        <span>GOLONGAN I: DEWAN ESELON PUSAT</span>
+    </div>
+    
+    <div class="grid-container">
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kopilot (3 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="meilina.jpg" alt="Foto Meilina" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Meilina Anggraini</h4>
+            <div class="satuan-badge satuan-subteranea">Matra Subteranea & Vertikal</div>
+            <span class="dossier-role">Dir. Arsitek Data & Hub. Strategis</span>
+            <p class="dossier-function">"Merancang infrastruktur data intelijen dan mengelola aliansi strategis antar-lembaga."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Arsitektur Basis Data Intelijen</span>
+                <span class="keahlian-item">Enkripsi OMEGA-Cleared</span>
+                <span class="keahlian-item">Manajemen Server Terdistribusi</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>REG ID: BMT-26-002</div>
+                <div>GOL. DARAH: A+</div>
+                <div>STATUS: ACTIVE</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kopilot (3 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="arif.jpg" alt="Foto Arif" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Muhammad Arif</h4>
+            <div class="satuan-badge satuan-subteranea">Matra Subteranea & Vertikal</div>
+            <span class="dossier-role">Dir. Alokasi Aset & Suplai</span>
+            <p class="dossier-function">"Bertanggung jawab atas rantai pasok logistik, distribusi persenjataan, dan manajemen sumber daya operasi."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Logistik Skala Omega</span>
+                <span class="keahlian-item">Ketahanan Suplai Lapangan</span>
+                <span class="keahlian-item">Manajemen Sumber Daya Strategis</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>REG ID: BMT-26-003</div>
+                <div>GOL. DARAH: B+</div>
+                <div>STATUS: ACTIVE</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kapten (4 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="yondri.png" alt="Foto Yondri" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Yondri Satria Pranata</h4>
+            <div class="satuan-badge satuan-terestrial">Matra Terestrial & Biosfer</div>
+            <span class="dossier-role">Komandan Jenderal Ops. Lapangan</span>
+            <p class="dossier-function">"Memimpin dan mengawasi eksekusi taktis serta pengerahan pasukan di zona operasi aktif."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Taktik Operasi Lapangan</span>
+                <span class="keahlian-item">Komando Pasukan Khusus</span>
+                <span class="keahlian-item">Ekstraksi di Medan Ekstrem</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>REG ID: BMT-26-004</div>
+                <div>GOL. DARAH: O-</div>
+                <div>STATUS: FIELD DEPLOYED</div>
+            </div>
+        </div>
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kapten (4 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="Indriani.jpg" alt="Foto Indriani" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Indriani Wulandari</h4>
+            <div class="satuan-badge satuan-sar">Matra Evakuasi Taktis & SAR</div>
+            <span class="dossier-role">Dir. Komunikasi Publik</span>
+            <p class="dossier-function">"Mengendalikan arus informasi, protokol hubungan masyarakat, dan operasi psikologis media."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Penyiaran Informasi Strategis</span>
+                <span class="keahlian-item">Manajemen Komunikasi Publik</span>
+                <span class="keahlian-item">Protokol Berita Terbatas</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>REG ID: BMT-26-005</div>
+                <div>GOL. DARAH: AB+</div>
+                <div>STATUS: ACTIVE</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI OMEGA</div>
+            <div class="epaulet" title="Kopilot (3 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="raja.jpg" alt="Foto Raja" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Raja Risma Imesia</h4>
+            <div class="satuan-badge satuan-hidro">Matra Hidrodinamika</div>
+            <span class="dossier-role">Dir. Mitigasi Risiko & Keamanan</span>
+            <p class="dossier-function">"Menganalisis potensi ancaman, menjaga protokol keamanan internal, dan kontraintelijen."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Mitigasi Risiko Omega</span>
+                <span class="keahlian-item">Protokol Keamanan Pusat</span>
+                <span class="keahlian-item">Analisis Ancaman Kontingensi</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-01.006</div>
+                <div>GOL. DARAH: A-</div>
+                <div>STATUS: STANDBY</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <span>GOLONGAN II: KEPALA MATRA OPERASIONAL</span>
+    </div>
+    
+    <div class="grid-container">
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Perwira Matra (2 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="diky.jpg" alt="Foto Diky" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Diky Kurniawan</h4>
+            <div class="satuan-badge satuan-terestrial">Matra Terestrial & Biosfer</div>
+            <span class="dossier-role">Kepala Matra Terestrial</span>
+            <p class="dossier-function">"Mengomandoi pergerakan infanteri, pertahanan, dan mobilitas pasukan khusus di medan darat."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Navigasi Terestrial Lanjut</span>
+                <span class="keahlian-item">Analisis Biosfer Lapangan</span>
+                <span class="keahlian-item">Topografi Medan Kritis</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-02.T01</div>
+                <div>GOL. DARAH: O+</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Perwira Matra (2 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="foto-ibrahim.jpg" alt="Foto Ibrahim" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Ibrahim</h4>
+            <div class="satuan-badge satuan-subteranea">Matra Subteranea & Vertikal</div>
+            <span class="dossier-role">Kepala Matra Subteranea</span>
+            <p class="dossier-function">"Memimpin operasi klandestin, infiltrasi, dan pergerakan di wilayah bunker/bawah tanah."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Eksplorasi Subteranea (Gua)</span>
+                <span class="keahlian-item">Pemetaan Vertikal Lanjut</span>
+                <span class="keahlian-item">Speleologi Taktis</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-02.S01</div>
+                <div>GOL. DARAH: B+</div>
+            </div>
+        </div>
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Perwira Matra (2 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="akbar.png" alt="Foto Akbar" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Akbar Suhada</h4>
+            <div class="satuan-badge satuan-hidro">Matra Hidrodinamika</div>
+            <span class="dossier-role">Kepala Matra Hidrodinamika</span>
+            <p class="dossier-function">"Memimpin operasi amfibi, patroli maritim, dan infiltrasi melalui jalur perairan."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Hidrodinamika (Air)</span>
+                <span class="keahlian-item">Navigasi Arus Deras</span>
+                <span class="keahlian-item">Operasi di Medan Perairan</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-02.H01</div>
+                <div>GOL. DARAH: AB-</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Perwira Matra (2 Garis)">
+                <div class="pilot-stripe"></div><div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="sigit.png" alt="Foto Rohmat" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Rohmat Sigit Pradana</h4>
+            <div class="satuan-badge satuan-sar">Matra Evakuasi Taktis & SAR</div>
+            <span class="dossier-role">Kepala Matra Evakuasi Taktis</span>
+            <p class="dossier-function">"Mengoordinasikan operasi penyelamatan (SAR), dukungan medis tempur, dan ekstraksi personel."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Evakuasi Taktis (SAR)</span>
+                <span class="keahlian-item">Manajemen Medis Lapangan</span>
+                <span class="keahlian-item">Ekstraksi Korban Skala Omega</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-02.E01</div>
+                <div>GOL. DARAH: A+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <span>GOLONGAN II: AJUDAN SEKTORAL</span>
+    </div>
+    
+    <div class="grid-container" style="margin-bottom: 80px;">
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Ajudan (1 Garis)">
+                <div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="nathalia.jpg" alt="Foto Christy" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Christy Nathalia</h4>
+            <div class="satuan-badge satuan-terestrial">Matra Terestrial & Biosfer</div>
+            <span class="dossier-role">Ajudan Terestrial</span>
+            <p class="dossier-function">"Memberikan dukungan operasional dan administrasi taktis khusus untuk Matra Terestrial."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Asistensi Sektoral Terestrial</span>
+                <span class="keahlian-item">Manajemen Logistik Terestrial</span>
+                <span class="keahlian-item">Protokol Komunikasi Matra Darat</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-03.T02</div>
+                <div>GOL. DARAH: O+</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Ajudan (1 Garis)">
+                <div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="foto-aza.jpg" alt="Foto Aza" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Aza Adinda Putri</h4>
+            <div class="satuan-badge satuan-subteranea">Matra Subteranea & Vertikal</div>
+            <span class="dossier-role">Ajudan Subteranea</span>
+            <p class="dossier-function">"Menangani analisis awal rute dan dukungan logistik pemetaan untuk Matra Subteranea."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Asistensi Sektoral Subteranea</span>
+                <span class="keahlian-item">Pemeliharaan Peralatan Subteranea</span>
+                <span class="keahlian-item">Protokol Komunikasi Tertutup</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-03.S02</div>
+                <div>GOL. DARAH: B-</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Ajudan (1 Garis)">
+                <div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="elsya.png" alt="Foto Elsya" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Elsya</h4>
+            <div class="satuan-badge satuan-hidro">Matra Hidrodinamika</div>
+            <span class="dossier-role">Ajudan Hidrodinamika</span>
+            <p class="dossier-function">"Mengelola koordinasi komunikasi maritim dan persiapan sarana amfibi Matra Hidrodinamika."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Asistensi Sektoral Hidrodinamika</span>
+                <span class="keahlian-item">Manajemen Aset Hidrodinamika</span>
+                <span class="keahlian-item">Protokol Komunikasi Maritim</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-03.H02</div>
+                <div>GOL. DARAH: AB+</div>
+            </div>
+        </div>
+
+        <div class="dossier-card">
+            <div class="watermark"></div>
+            <div class="stamp">OTORITAS • BENTANG MATRA<br>TERVALIDASI ALPHA</div>
+            <div class="epaulet" title="Ajudan (1 Garis)">
+                <div class="pilot-stripe"></div>
+            </div>
+            <div class="photo-frame">
+                <img src="foto-irgi.jpg" alt="Foto Irgi" onerror="this.src='https://via.placeholder.com/140x160?text=FOTO+KOSONG'">
+            </div>
+            <h4 class="dossier-name">Irgi Waliansyah Putra</h4>
+            <div class="satuan-badge satuan-sar">Matra Evakuasi Taktis & SAR</div>
+            <span class="dossier-role">Ajudan SAR</span>
+            <p class="dossier-function">"Menyiapkan peralatan ekstraksi, triase medis, dan membantu penentuan titik penjemputan darurat."</p>
+            
+            <div class="keahlian-block">
+                <span class="keahlian-header">Spesialisasi Kunci:</span>
+                <span class="keahlian-item">Asistensi Sektoral SAR</span>
+                <span class="keahlian-item">Koordinator Komunikasi Tim SAR</span>
+                <span class="keahlian-item">Protokol Evakuasi Cepat</span>
+            </div>
+
+            <div class="dossier-meta">
+                <div>ID PERS: BM-03.E02</div>
+                <div>GOL. DARAH: O-</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

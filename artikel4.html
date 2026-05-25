@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gear Vertikal & Subteranea | BENTANG MATRA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f2f5f8;
+            --bg-paper: #FFFFFF;
+            --text-primary: #1A237E; /* Biru Gelap Subteranea */
+            --text-body: #333333;
+            --border-primary: #1A237E;
+            --crimson-red: #D32F2F;
+            --gold-omega: #FFC107;
+            --font-primary: 'Poppins', Arial, sans-serif;
+            --font-terminal: 'Courier New', Courier, monospace; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-body); 
+            font-family: var(--font-primary); 
+            line-height: 1.8; 
+            background-image: radial-gradient(rgba(26, 35, 126, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Top Navigation */
+        .top-bar { 
+            background: var(--bg-paper); 
+            padding: 15px 40px; 
+            border-bottom: 2px solid var(--border-primary); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .back-btn { 
+            text-decoration: none; 
+            font-weight: 700; 
+            color: var(--border-primary); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--crimson-red); }
+        .back-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .brand-text { font-weight: 800; color: var(--text-primary); letter-spacing: 2px; }
+
+        /* Article Layout */
+        .article-container { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            background: var(--bg-paper); 
+            padding: 60px 80px; 
+            border: 1px solid rgba(26, 35, 126, 0.2); 
+            border-radius: 8px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+        }
+        
+        /* Header & Labels */
+        .article-header { border-bottom: 3px double rgba(26, 35, 126, 0.2); padding-bottom: 30px; margin-bottom: 40px; text-align: center; }
+        
+        .matra-label {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-primary); font-size: 0.9rem; color: #fff;
+            font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;
+            background: var(--text-primary); padding: 8px 25px;
+            border-radius: 20px; box-shadow: 0 4px 10px rgba(26, 35, 126, 0.3);
+        }
+
+        .article-title { font-size: 2.5rem; color: var(--text-primary); font-weight: 800; line-height: 1.3; margin-bottom: 25px; }
+        /* Blogger Author Box */
+        .author-box {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            margin-top: 20px; padding: 15px; background: rgba(26, 35, 126, 0.03);
+            border-radius: 8px; border: 1px solid rgba(26, 35, 126, 0.1);
+            text-align: left;
+        }
+        .author-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--text-primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .author-info { display: flex; flex-direction: column; }
+        .author-name { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
+        .author-title { font-size: 0.85rem; color: var(--crimson-red); font-weight: 600; }
+        .author-date { font-size: 0.8rem; color: #777; font-family: var(--font-terminal); }
+
+        /* Cover Image */
+        .article-image { width: 100%; height: 450px; object-fit: cover; border-radius: 8px; margin-bottom: 30px; border: 1px solid rgba(26, 35, 126, 0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.15); filter: contrast(1.1); }
+        .image-caption { text-align: center; font-size: 0.8rem; color: #777; margin-top: -20px; margin-bottom: 40px; font-style: italic; font-family: var(--font-primary); }
+
+        /* Typography & Body */
+        .article-body p { margin-bottom: 25px; font-size: 1.1rem; color: #333; text-align: justify; }
+        
+        .first-letter::first-letter {
+            font-size: 3.5rem; font-weight: 800; color: var(--text-primary); float: left;
+            line-height: 1; margin-right: 12px; margin-top: 5px;
+        }
+
+        .chapter-title { 
+            color: var(--text-primary); margin: 50px 0 20px 0; font-size: 1.6rem; 
+            font-weight: 700; border-bottom: 2px dashed rgba(26, 35, 126, 0.2); padding-bottom: 10px;
+        }
+
+        /* Pro Tip Box (Subteranea Style) */
+        .pro-tip {
+            background: #E8EAF6; border-left: 5px solid var(--text-primary);
+            padding: 25px 30px; margin: 35px 0; border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.1);
+        }
+        .pro-tip-title {
+            display: flex; align-items: center; gap: 10px; color: var(--text-primary);
+            font-weight: 800; font-size: 1.1rem; margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .pro-tip-title svg { width: 20px; height: 20px; fill: currentColor; }
+        
+        .brand-highlight { font-weight: 700; color: var(--crimson-red); padding: 0 5px; background: rgba(211,47,47,0.05); border-radius: 3px; }
+
+        /* Footer Blog */
+        .footer-blog {
+            margin-top: 60px; padding-top: 30px; border-top: 2px solid rgba(26, 35, 126, 0.1);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .tags-container { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tag { background: rgba(26, 35, 126, 0.05); color: var(--text-primary); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(26, 35, 126, 0.1); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .top-bar { padding: 15px 20px; }
+            .brand-text { display: none; } 
+            .article-container { margin: 20px 10px; padding: 40px 25px; }
+            .article-title { font-size: 1.8rem; }
+            .article-image { height: 250px; }
+            .pro-tip { padding: 20px; }
+            .chapter-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <a href="buletin.html" class="back-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            KEMBALI KE ARSIP
+        </a>
+        <div class="brand-text">BENTANG MATRA</div>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <div class="article-header">
+                <div class="matra-label">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22L2 4h20L12 22z" stroke-linejoin="round"/><path d="M12 22V4M7 13l5-3 5 3M7 18l5-3 5 3" stroke-linecap="round"/></svg>
+                    MATRA SUBTERANEA
+                </div>
+                <h1 class="article-title">Menembus Gelap Abadi: Rekomendasi <i>Gear</i> Vertikal & Gua Anti-Gagal</h1>
+                
+                <div class="author-box">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Aza Adinda Putri" class="author-avatar">
+                    <div class="author-info">
+                        <span class="author-name">Sersan Mayor Aza Adinda Putri</span>
+                        <span class="author-title">Subterranean Sector Adjutant</span>
+                        <span class="author-date">Ditulis pada: 12 Mei 2026 // Kode Rilis: S-06</span>
+                    </div>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1544253303-1250f242cbfa?auto=format&fit=crop&w=1200&q=80" alt="Eksplorasi Gua Vertikal" class="article-image">
+            <div class="image-caption">Penetrasi vertikal di sistem gua Karst. Kesalahan alat di sini berarti kegagalan sistematis.</div>
+            <div class="article-body">
+                <p class="first-letter">Halo rekan-rekan penembus ruang negatif bumi! Saya Aza, dan bagi saya, Matra Subteranea adalah matra yang paling tidak kenal ampun. Saat kita turun melewati zona senja gua (<em>Twilight Zone</em>) menuju kedalaman di mana cahaya matahari tidak pernah menyentuhnya selama jutaan tahun, hidup kita murni bergantung pada dua hal: tali yang kita gantung dan alat yang kita kaitkan padanya.</p>
+
+                <p>Dalam Single Rope Technique (SRT) dan caving, gravitasi dan lumpur korosif adalah musuh harian. Banyak yang bertanya kepada saya mengenai spesifikasi alat yang biasa digunakan oleh tim elit Subteranea di bawah komando Kapten Ibrahim. Hari ini, saya akan membedah rekomendasi <em>brand</em> dan spesifikasi <em>gear</em> yang terbukti tangguh menahan siksaan kegelapan abadi.</p>
+
+                <h2 class="chapter-title">1. Tali (The Lifeline)</h2>
+                <p>Jangan pernah membawa tali dinamis (tali panjat tebing yang membal) untuk eksplorasi gua vertikal! Anda akan memantul seperti yoyo saat melakukan <em>ascending</em> (naik meniti tali). Kita membutuhkan tali karmantel semi-statis yang kokoh terhadap friksi bebatuan tajam.</p>
+
+                <p><strong>Rekomendasi Utama:</strong> <span class="brand-highlight">Beal Spelenium 9mm - 10mm</span>. Beal merancang seri Spelenium khusus untuk speleologi. Ketahanan abrasi mantel luarnya sangat luar biasa menghadapi kristal batu kapur. Alternatif lainnya adalah <span class="brand-highlight">Edelrid Superstatic</span> yang memiliki teknologi <em>Thermo Shield</em> sehingga tali tidak cepat kaku meski direndam air lumpur dingin berhari-hari.</p>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        TIPS PERAWATAN TALI AZA
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Lumpur gua mengandung mineral mikro tajam. Setelah operasi, <strong>selalu cuci tali Anda menggunakan air tawar mengalir tanpa deterjen kimia</strong>. Gunakan sikat khusus tali (Rope Brush) untuk mengeluarkan pasir dari sela-sela mantel. Tali kotor yang digunakan kembali akan memotong dirinya sendiri dari dalam.</p>
+                </div>
+
+                <h2 class="chapter-title">2. Seat Harness (Sabuk Pengaman)</h2>
+                <p>Harness untuk caving sangat berbeda dengan harness panjat tebing. <em>Caving harness</em> dirancang dengan titik paut (attachment point) serendah mungkin untuk memaksimalkan efisiensi langkah saat menggunakan <em>ascender</em>.</p>
+                
+                <p><strong>Rekomendasi Utama:</strong> Tidak ada yang bisa mengalahkan dominasi <span class="brand-highlight">Petzl Fractio</span> atau <span class="brand-highlight">Petzl Superavanti</span>. Petzl sangat memahami anatomi *caver*. Untuk kenyamanan operasi SAR yang membutuhkan waktu gantung lama, saya lebih merekomendasikan <span class="brand-highlight">Petzl Astro Bod Fast</span> yang sudah terintegrasi dengan <em>chest ascender</em> (Croll).</p>
+
+                <p>Jangan lupa menggunakan pelindung PVC (Maillon pelindung gesekan) pada tali webbing harness Anda, karena celah gua yang sempit pasti akan menggerus harness Anda seiring waktu.</p>
+
+                <h2 class="chapter-title">3. Sistem Ascender & Descender</h2>
+                <p>Untuk turun (descending), lupakan Figure 8. Gesekannya akan melintir tali statis Anda hingga rusak permanen. Gunakan <em>Bobbin Descender</em> (descender berbentuk dua roda gila).</p>
+
+                <p><strong>Rekomendasi Utama:</strong> <span class="brand-highlight">Petzl STOP</span> (dengan sistem *auto-braking* yang krusial jika Anda pingsan terkena batu jatuh) atau <span class="brand-highlight">Petzl Simple</span> bagi operator senior yang lebih menyukai fluiditas manuver. Untuk naik (ascending), kombinasi <span class="brand-highlight">Petzl Croll</span> (di dada) dan <span class="brand-highlight">Petzl Ascension</span> (di tangan) adalah standar absolut yang belum tertandingi keawetannya oleh merek lain.</p>
+                <h2 class="chapter-title">4. Pencahayaan (Illumination)</h2>
+                <p>Dalam kegelapan gua yang pekat (pitch black), senter HP atau <em>headlamp</em> murahan yang Anda beli di minimarket akan terasa seperti lilin yang ditiup angin. Anda butuh cahaya yang merata dan tahan banting, tahan bentur, dan tahan air (minimal IP67).</p>
+
+                <p><strong>Rekomendasi Utama:</strong> <span class="brand-highlight">Fenix HM65R</span> atau seri <span class="brand-highlight">Nitecore HC60</span> untuk output lumen yang luar biasa. Namun, jika Anda mencari <em>gear</em> khusus *caving* profesional kelas berat, <span class="brand-highlight">Petzl Duo S</span> adalah dewanya. Ia dirancang untuk mendeteksi pantulan cahaya jarak dekat sehingga tidak menyilaukan rekan setim saat saling bertatapan di ruang sempit.</p>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        ATURAN "THE RULE OF THREE LIGHTS"
+                    </div>
+                    <p style="margin:0; font-size: 1rem; color: #555;">Di Matra Subteranea, setiap personel wajib membawa minimum <strong>3 sumber cahaya independen</strong>. 1 Headlamp Utama (terpasang di helm), 1 Headlamp Cadangan (di leher/saku dengan baterai terpisah), dan 1 Senter Kecil Darurat (Micro light/Glowstick). Kegelapan total di perut bumi dapat menyebabkan halusinasi spasial dalam waktu kurang dari 30 menit.</p>
+                </div>
+
+                <h2 class="chapter-title">5. Pakaian dan Pelindung Tambahan</h2>
+                <p>Gua itu dingin (seringkali di bawah 15 derajat Celcius), basah, dan berlumpur. Jaket gunung biasa akan sobek dalam hitungan jam. Kita menggunakan pakaian terusan panjang (<em>Coverall</em>) tanpa banyak kantong yang bisa tersangkut batu.</p>
+
+                <p>Bahan terbaik adalah Cordura Nilon yang tahan air dan sangat sulit dirobek. Untuk sepatu, tinggalkan sepatu <em>hiking</em> mahal Anda. Kami lebih mempercayai sepatu boots karet (Boots PVC) tinggi yang lentur, bergerigi kasar (seperti sepatu perkebunan), dilubangi kecil di bagian bawah telapaknya agar air yang masuk bisa keluar kembali saat kita melangkah.</p>
+
+                <h2 class="chapter-title">Garis Akhir Eksplorasi</h2>
+                <p>Rekan-rekan sekalian, alat seharga puluhan juta rupiah tidak akan menyelamatkan Anda jika Anda salah memasang simpul atau tidak melakukan <em>cross-check</em> pautan karabiner rekan (Buddy Check). <em>Gear</em> terbaik hanyalah ekstensi dari kecerdasan, ketenangan, dan latihan repetitif seorang operator.</p>
+                
+                <p>Matra Subteranea tidak memaafkan kecerobohan. Pelajari alat Anda di siang bolong, sebelum Anda menggantungkan nyawa padanya di kegelapan abadi.</p>
+
+                <p>Tetap solid, tetap presisi. Salam satu tali dari saya, Aza!</p>
+
+                <div class="footer-blog">
+                    <div class="tags-container">
+                        <span class="tag">#Subteranea</span>
+                        <span class="tag">#VerticalRescue</span>
+                        <span class="tag">#CavingGear</span>
+                        <span class="tag">#SingleRopeTechnique</span>
+                        <span class="tag">#Petzl</span>
+                    </div>
+                    <p style="font-family: var(--font-primary); font-size: 0.9rem; color: var(--text-primary); font-weight: 700; margin-top: 10px;">
+                        "Kegelapan menyembunyikan ancaman, tetapi kesiapan kitalah yang membawakan cahaya."
+                    </p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; background: var(--bg-paper); border-top: 1px solid rgba(26, 35, 126, 0.1);">
+        <p style="font-size: 0.85rem; color: #666; font-weight: 600;">Hak Cipta &copy; 2026 BENTANG MATRA. Transmisi Data Diamankan.</p>
+    </footer>
+</body>
+</html>
